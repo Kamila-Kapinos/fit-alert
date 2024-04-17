@@ -1,0 +1,30 @@
+// Definicja niestandardowego koloru tła
+$custom-bg-color: #C7DBA6;
+
+// Styl dla navbara
+.navbar {
+  background-color: $custom-bg-color !important;
+  height: 67px;
+
+  // Styl dla przycisków w navbarze
+  .btn {
+    background-color: darken($custom-bg-color, 10%); // Przycisk będzie ciemniejszy od tła o 10%
+    border-color: darken($custom-bg-color, 20%); // Kolor obramowania przycisku będzie jeszcze ciemniejszy o 20%
+    &.btn-circle { // Dodatkowy styl dla okrągłego przycisku
+      border-radius: 50%; // Okrągły kształt przycisku
+      width: 40px; // Szerokość przycisku
+      height: 40px; // Wysokość przycisku
+      padding: 0; // Usunięcie wewnętrznego odstępu przycisku
+      line-height: 40px; // Wyśrodkowanie ikony wewnątrz przycisku
+      text-align: center; // Wyśrodkowanie ikony wewnątrz przycisku
+    }
+  }
+
+  // Styl dla linków w navbarze
+  .nav-link {
+    white-space: nowrap; // Tekst nie będzie się zawijał
+    overflow: hidden; // Ukrywanie nadmiarowego tekstu, który nie mieści się
+    text-overflow: ellipsis; // Wyświetlanie "..." w miejscu ukrytego tekstu
+    color: white; // Kolor tekstu linków na biały (dla kontrastu)
+  }
+}
