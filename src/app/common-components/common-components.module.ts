@@ -1,8 +1,7 @@
-import { NgModule } from "@angular/core";
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { CommonModule } from "@angular/common";
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core'
+import { NavbarComponent } from './components/navbar/navbar.component'
+import { CommonModule } from '@angular/common'
+import { CollapseModule } from 'ngx-bootstrap/collapse'
 
 @NgModule({
   declarations: [
@@ -10,11 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
-    CollapseModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   exports: [
-    NavbarComponent
   ]
 })
 export class CommonComponentsModule { }
