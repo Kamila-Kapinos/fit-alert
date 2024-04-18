@@ -8,23 +8,61 @@ $custom-bg-color: #C7DBA6;
 
   // Styl dla przycisków w navbarze
   .btn {
-    background-color: darken($custom-bg-color, 10%); // Przycisk będzie ciemniejszy od tła o 10%
-    border-color: darken($custom-bg-color, 20%); // Kolor obramowania przycisku będzie jeszcze ciemniejszy o 20%
-    &.btn-circle { // Dodatkowy styl dla okrągłego przycisku
-      border-radius: 50%; // Okrągły kształt przycisku
-      width: 40px; // Szerokość przycisku
-      height: 40px; // Wysokość przycisku
-      padding: 0; // Usunięcie wewnętrznego odstępu przycisku
-      line-height: 40px; // Wyśrodkowanie ikony wewnątrz przycisku
-      text-align: center; // Wyśrodkowanie ikony wewnątrz przycisku
+    background-color: darken($custom-bg-color, 10%);
+    border-color: darken($custom-bg-color, 20%);
+    &.btn-circle {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+  // Styl dla linków w navbarze
+  .nav-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  // Styl dla navbara na telefonie
+  @media (max-width: 767px) {
+    height: auto;
+    padding: 10px;
+    .navbar-brand {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .nav-link {
+      align-items: center;
+    }
+  }
+}
+@media (min-width: 1400px) {
+  .navbar{
+    .navbar-brand {
+      margin-right: 80%;
+      margin-left: 2%;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar{
+    .navbar-brand {
+      margin-right: 70%;
+      margin-left: 2%;
+    }
+  }
+}
+@media (max-width: 992px) {
+  .navbar{
+    .navbar-brand {
+      margin-right: 60%;
+      margin-left: 2%;
     }
   }
 
-  // Styl dla linków w navbarze
-  .nav-link {
-    white-space: nowrap; // Tekst nie będzie się zawijał
-    overflow: hidden; // Ukrywanie nadmiarowego tekstu, który nie mieści się
-    text-overflow: ellipsis; // Wyświetlanie "..." w miejscu ukrytego tekstu
-    color: white; // Kolor tekstu linków na biały (dla kontrastu)
-  }
 }
