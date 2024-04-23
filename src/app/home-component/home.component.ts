@@ -9,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  user: string = 'Sam';
+  counter: number = 0;
 }
