@@ -2,7 +2,10 @@ $basic-grey: #D9D9D9;
 
 footer {
   background-color: $basic-grey !important;
-  position: fixed; /* lub position: sticky; */
+  position: relative;
   bottom: 0;
   width: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  text-align: center;
 }
