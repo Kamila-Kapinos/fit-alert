@@ -20,49 +20,40 @@ $card-color: #F0F0F0;
   background-color: $custom-el-color-primary;
   border-radius: 10px;
   color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container-challange {
   position: relative;
-  width: 50%;
-}
-
-.image {
-  display: block;
   width: 100%;
-  height: auto;
+  display: flex; /* Dodane */
+  justify-content: center; /* Dodane */
 }
 
 .overlay {
   position: absolute;
-  bottom: 0;
-  left: 100%;
-  right: 0;
+  top: 15%; /* Ustawienie odległości od góry na 10% wysokości rodzica */
+  left: 25%; /* Ustawienie odległości od lewej na 10% szerokości rodzica */
   background-color: $card-color;
   border-radius: 10px;
   overflow: hidden;
-  width: 0;
-  height: 100%;
+  width: 50%; /* Ustawienie szerokości na 80% szerokości rodzica */
+  height: 70%; /* Ustawienie wysokości na 60% wysokości rodzica */
   transition: .5s ease;
 }
 
-.container-challange:hover .overlay {
-  width: 100%;
-  left: 0;
-}
 
-.streak {
-  text-align: right;
+.container-challange:hover .overlay {
+  width: 0;
 }
 
 .text {
-  color: white;
-  font-size: 20px;
+  font-size: 2rem;
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   white-space: nowrap;
 }
@@ -71,6 +62,14 @@ $card-color: #F0F0F0;
   background: #FFFEFE;
   border-radius: 10px;
   text-align: center;
+  position: relative;
+  width: 50%; /* Dodane */
+}
+
+.streak {
+  text-align: right;
+  margin-top: 10px; /* Dodane */
+  width: 100%; /* Dodane */
 }
 
 .card-art {
