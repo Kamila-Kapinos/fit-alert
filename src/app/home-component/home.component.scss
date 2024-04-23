@@ -1,0 +1,88 @@
+$custom-el-color-primary: #C7DBA6;
+$custom-el-color-secondary: #BBD8E1;
+$card-color: #F0F0F0;
+
+.mood-el {
+  background-color: $custom-el-color-secondary;
+  border-radius: 10px;
+}
+
+.btn-sm-square {
+  font-size: 1rem; /* Rozmiar czcionki */
+  padding: 0.375rem 0.5rem; /* Wielkość wypełnienia */
+  width: 72px; /* Ustawiamy szerokość na automatyczną */
+  height: 53px; /* Ustawiamy wysokość na 2rem */
+  min-width: 2rem; /* Ustawiamy minimalną szerokość na 2rem */
+  text-align: center;
+}
+
+.daily-ch {
+  background-color: $custom-el-color-primary;
+  border-radius: 10px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-challange {
+  position: relative;
+  width: 100%;
+  display: flex; /* Dodane */
+  justify-content: center; /* Dodane */
+}
+
+.overlay {
+  position: absolute;
+  top: 12%; /* Ustawienie odległości od góry na 10% wysokości rodzica */
+  left: 25%; /* Ustawienie odległości od lewej na 10% szerokości rodzica */
+  background-color: $card-color;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 50%; /* Ustawienie szerokości na 80% szerokości rodzica */
+  height: 72%; /* Ustawienie wysokości na 60% wysokości rodzica */
+  transition: .5s ease;
+}
+
+
+.container-challange:hover .overlay {
+  width: 0;
+}
+
+.text {
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.card-challange {
+  background: #FFFEFE;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  width: 50%; /* Dodane */
+}
+
+.streak {
+  text-align: right;
+  margin-top: 10px; /* Dodane */
+  width: 100%; /* Dodane */
+}
+
+.card-art {
+  background-color: $custom-el-color-secondary;
+  border-radius: 10px;
+  margin-bottom: 1rem; /* Dodajemy odstęp między kartami */
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  /* Na ekranach o szerokości co najmniej 768px */
+  .col-lg-3 {
+    flex: 0 0 25%; /* Ustawiamy szerokość na 25% */
+    max-width: 25%; /* Ustawiamy maksymalną szerokość na 25% */
+  }
+}
