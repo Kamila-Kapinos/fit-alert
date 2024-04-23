@@ -34,13 +34,13 @@ $card-color: #F0F0F0;
 
 .overlay {
   position: absolute;
-  top: 15%; /* Ustawienie odległości od góry na 10% wysokości rodzica */
+  top: 12%; /* Ustawienie odległości od góry na 10% wysokości rodzica */
   left: 25%; /* Ustawienie odległości od lewej na 10% szerokości rodzica */
   background-color: $card-color;
   border-radius: 10px;
   overflow: hidden;
   width: 50%; /* Ustawienie szerokości na 80% szerokości rodzica */
-  height: 70%; /* Ustawienie wysokości na 60% wysokości rodzica */
+  height: 72%; /* Ustawienie wysokości na 60% wysokości rodzica */
   transition: .5s ease;
 }
 
