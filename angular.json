@@ -99,6 +99,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "fit-alert:build:production",
+              "serveTarget": "fit-alert:serve:production"
+            },
+            "development": {
+              "buildTarget": "fit-alert:build:development",
+              "serveTarget": "fit-alert:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

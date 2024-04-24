@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "fit-alert",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

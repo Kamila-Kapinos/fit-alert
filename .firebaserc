@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fit-alert-62706": {
+      "hosting": {
+        "fit-alert": [
+          "fit-alert-62706"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fit-alert-62706"
+  }
+}
