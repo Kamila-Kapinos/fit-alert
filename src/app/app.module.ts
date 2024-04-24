@@ -1,8 +1,3 @@
-/* eslint-disable import/no-duplicates */
-/* eslint-disable @typescript-eslint/object-curly-spacing */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/comma-dangle */
-/* eslint-disable @typescript-eslint/semi */
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
