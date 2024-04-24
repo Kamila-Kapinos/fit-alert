@@ -1,1 +1,6 @@
-<p>login works!</p>
+<form (ngSubmit)="loginWithEmail()">
+  <input type="email" name="email" [(ngModel)]="email" placeholder="Email" required>
+  <input type="password" name="password" [(ngModel)]="password" placeholder="Hasło" required>
+  <button type="submit">Zaloguj</button>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</form>
