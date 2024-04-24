@@ -21,7 +21,14 @@
           <a class="nav-link active" aria-current="page" href="#">Today</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Your diary</a>
+<!--          <a class="nav-link" href="#">Your diary</a>-->
+          <button
+            type="button"
+            class="nav-link"
+            [routerLink]="['/diary']"
+          >
+            Your diary
+          </button>
         </li>
         <li class="nav-item">
           <button class="btn">Profile</button>
