@@ -10,8 +10,12 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import {CommonModule} from "@angular/common";
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environments";
+import { FormsModule } from '@angular/forms';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,8 @@ import {environment} from "../environments/environments";
     FooterComponent
   ],
   imports: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
     CommonModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -33,6 +39,7 @@ import {environment} from "../environments/environments";
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
