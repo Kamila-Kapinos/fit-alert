@@ -14,9 +14,11 @@ export class HomeComponent implements OnInit {
   yourChallenge: string = ''
 
   challenges: Array<string> = ['Eat two carrots', 'Prepare a veggie meal', 'Do 10 push-ups'];
+
   ngOnInit(): void {
     this.yourChallenge = this.getRandomChallenge();
   }
+
   getRandomChallenge(): string {
     const randomIndex = Math.floor(Math.random() * this.challenges.length);
     return this.challenges[randomIndex];

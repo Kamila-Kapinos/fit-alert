@@ -1,1 +1,162 @@
-<p>diary works!</p>
+<h1 id="diary-title">Your Diary</h1>
+<!-- <div class="diary-container container">
+    <div class="diary-accordion accordion" id="accordionExample">
+        <div class="diary-entry-accordion-item accordion-item">
+            <div class="diary-entry-header accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-collapse="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+
+                    diary entry accordion item header
+                </button>
+
+            </div>
+            <div class="diary-entry-accordion-body accordion-collapse collapse show" id="collapseOne"
+                aria-labelledby="headingOne">
+                <div class="accordion-body" data-bs-parent="#accordionExample">
+                    diary entry accordion item body
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Accordion Item #1
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
+                plugin adds the appropriate classes that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
+                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
+                within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Accordion Item #2
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse
+                plugin adds the appropriate classes that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
+                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
+                within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Accordion Item #3
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
+                plugin adds the appropriate classes that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
+                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
+                within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="diary-container" *ngFor="let year of diary | keyvalue">
+    <div class="diary-months">
+        <div class="month-year-bar">
+            Mar 2024
+        </div>
+        <div class="diary-cards">
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img
+                </div>
+                <div class="diary-card-title">
+                    diary card title
+                </div>
+                <div class="diary-card-content">
+                    diary card content
+                </div>
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 2
+                </div>
+                <div class="diary-card-title">
+                    diary card title 2
+                </div>
+                <div class="diary-card-content">
+                    diary card content 2
+                </div>
+
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 3
+                </div>
+                <div class="diary-card-title">
+                    diary card title 3
+                </div>
+                <div class="diary-card-content">
+                    diary card content 3
+                </div>
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 4
+                </div>
+                <div class="diary-card-title">
+                    diary card title 4
+                </div>
+                <div class="diary-card-content">
+                    diary card content 4
+                </div>
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 5
+                </div>
+                <div class="diary-card-title">
+                    diary card title 5
+                </div>
+                <div class="diary-card-content">
+                    diary card content 5
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="diary-months" *ngFor="let month of year.value | keyvalue">
+        <div class="month-year-bar">
+            {{this.month.key}} {{this.year.key}}
+        </div>
+        <div class="diary-cards">
+            <div *ngFor="let entry of month.value | keyvalue">
+                <div class="diary-card">
+                    <div>
+                        <p>glasses of water: {{entry.value['number of glasses of water']}}</p>
+                        <p>veggies in meals: {{entry.value['number of veggies in your meals']}}</p>
+                        <p>training time: {{entry.value['training time']}}</p>
+                        <p>sleep quality: {{entry.value['sleep qulity']}}</p>
+                    </div>
+                    <img [src]="entry.value['current mood img url']">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

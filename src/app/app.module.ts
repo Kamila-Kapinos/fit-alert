@@ -10,6 +10,9 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import {CommonModule} from "@angular/common";
 import { ServiceWorkerModule } from '@angular/service-worker';
+
+import {AngularFireModule} from "@angular/fire/compat";
+import {environment} from "../environments/environments";
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -22,6 +25,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     CollapseModule.forRoot(),
     NgbCollapse,

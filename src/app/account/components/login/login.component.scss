@@ -1,0 +1,20 @@
+$custom-el-color-primary: #C7DBA6;
+
+.login-container {
+  background-color: $custom-el-color-primary;
+  border-radius: 10px;
+}
+
+.login-button {
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: $custom-el-color-primary;
+}
