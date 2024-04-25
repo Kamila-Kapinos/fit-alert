@@ -3,6 +3,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { DailyService } from '../../services/daily.service';
+import { CollectionReference, DocumentData } from 'firebase/firestore';
 
 @Component({
   selector: 'app-diary',
@@ -12,8 +13,10 @@ import { DailyService } from '../../services/daily.service';
   styleUrl: './diary.component.scss',
 })
 export class DiaryComponent {
+  userDiary: any
+
   constructor(public dailyService: DailyService) {
-    this.readDiary()
+    // this.userDiary = this.readDiary()
   }
   exampleDiary = {
     2024: {
@@ -44,8 +47,11 @@ export class DiaryComponent {
 
   diary2: any;
 
-  async readDiary(): Promise<void> {
-    this.diary2 = await this.dailyService.getDiary();
-    console.log(this.diary2);
+  ngOnInit(): void{
+    this.dailyService.getDiary().then(
+      data => {this.userDiary = data;
+    }).catch((error) => {console.error('Error fetching diary data:', error);
+    });
+    // console.log(this.diary2);
   }
 }
