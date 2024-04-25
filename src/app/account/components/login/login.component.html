@@ -1,6 +1,20 @@
-<form (ngSubmit)="loginWithEmail()">
-  <input type="email" name="email" [(ngModel)]="email" placeholder="Email" required>
-  <input type="password" name="password" [(ngModel)]="password" placeholder="Hasło" required>
-  <button type="submit">Zaloguj</button>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-</form>
+<div class="py-4 px-4">
+  <h1 class="text-center">Fit Alert</h1>
+  <div class="login-container mt-4 py-4 px-4">
+    <h2>I have an account</h2>
+    <form class="mt-4" (ngSubmit)="loginWithEmail()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="d-flex justify-content-end"> <!-- Używamy klasy Bootstrapa d-flex i justify-content-end -->
+        <button type="submit" class="btn login-button">Sign in</button>
+      </div>
+      <p *ngIf="errorMessage" class="error mt-3">{{ errorMessage }}</p>
+    </form>
+  </div>
+</div>
