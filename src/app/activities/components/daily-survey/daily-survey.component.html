@@ -1,20 +1,41 @@
-
-<form class="daily-form">
+<form class="daily-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="row ">
         <div class="col-sm">
-            <label for="water" class="form-label" >number of glasses of water</label>
+            <label for="water" class="form-label">Glasses of water</label>
         </div>
         <div class="col-sm">
-            <input type="text" class="form-control" id="water">
+            <input type="text" class="form-control" id="water" name="water" [(ngModel)]="dailySurvey.glassesOfWater">
         </div>
     </div>
-    <div class="row">
+
+    <div class="row ">
         <div class="col-sm">
-            <label for="water" class="form-label" >number of glasses of water</label>
+            <label for="sleep" class="form-label">Sleep quality</label>
         </div>
         <div class="col-sm">
-            <input type="text" class="form-control" id="water">
+            <input type="text" class="form-control" id="sleep" name="sleep" [(ngModel)]="dailySurvey.sleepQuality">
         </div>
     </div>
+
+    <div class="row ">
+        <div class="col-sm">
+            <label for="training" class="form-label">Trining time in minutes</label>
+        </div>
+        <div class="col-sm">
+            <input type="text" class="form-control" id="training" name="training"
+                [(ngModel)]="dailySurvey.trainingTime">
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-sm">
+            <label for="veggies" class="form-label">Vegetables in meals</label>
+        </div>
+        <div class="col-sm">
+            <input type="text" class="form-control" id="veggies" name="veggies"
+                [(ngModel)]="dailySurvey.veggiesInMeals">
+        </div>
+    </div>
+
 
 </form>
