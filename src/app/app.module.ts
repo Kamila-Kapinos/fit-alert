@@ -10,8 +10,10 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import {CommonModule} from "@angular/common";
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environments";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import {environment} from "../environments/environments";
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
