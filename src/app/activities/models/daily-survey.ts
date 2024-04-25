@@ -6,4 +6,5 @@ export class DailySurvey {
     sleepQuality: string = '';
     trainingTime: number = 0;
     veggiesInMeals: number = 0;
+    excerciseOfTheDay: string = '';
 }
