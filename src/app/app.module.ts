@@ -14,6 +14,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environments";
 import { FormsModule } from '@angular/forms';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { FormsModule } from '@angular/forms';
     FooterComponent
   ],
   imports: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
     CommonModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),

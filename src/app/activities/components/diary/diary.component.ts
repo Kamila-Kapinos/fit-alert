@@ -12,7 +12,9 @@ import { DailyService } from '../../services/daily.service';
   styleUrl: './diary.component.scss',
 })
 export class DiaryComponent {
-  constructor(public dailyService: DailyService) {}
+  constructor(public dailyService: DailyService) {
+    this.readDiary()
+  }
   exampleDiary = {
     2024: {
       Jan: {
