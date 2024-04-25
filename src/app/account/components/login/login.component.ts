@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {Router, RouterLink} from "@angular/router";
 
 
 @Component({
@@ -9,7 +10,8 @@ import {NgIf} from "@angular/common";
   standalone: true,
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -19,12 +21,13 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private auth: AngularFireAuth) {}
+  constructor(private auth: AngularFireAuth, private router: Router) {}
 
   loginWithEmail() {
     this.auth.signInWithEmailAndPassword(this.email, this.password)
       .then(() => {
-        console.log('well done')
+        console.log('Logowanie udane');
+        this.router.navigate(['/']);
       })
       .catch(error => {
         this.errorMessage = error.message;
