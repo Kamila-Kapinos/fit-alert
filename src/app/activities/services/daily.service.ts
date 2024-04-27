@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core'
 import { Firestore, collection, getDocs, query } from '@angular/fire/firestore';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailySurvey } from '../models/daily-survey';
 
 @Injectable({
@@ -17,8 +17,8 @@ export class DailyService {
     ).docs.map((diary) => diary.data())
   }
 
-  public async getDailyLog() {
-    let log = (await getDoc(doc(this.firestore, "diary", this.getCurrentDate())));
+  async getDailyLog(docName: string) {
+    let log = (await getDoc(doc(this.firestore, "diary", docName)));
     if (log.exists()) {
       this.dailySurvey.creationTime = log.data()['time']
       this.dailySurvey.excerciseOfTheDay = log.data()['excercise']
@@ -32,6 +32,15 @@ export class DailyService {
     }
     else {
       return this.dailySurvey;
+    }
+  }
+
+  async sendDocument(data: Object) {
+    try {
+      await setDoc(doc(this.firestore, 'diary', this.getCurrentDate()), data).then(() => { console.log("wysłano dokument") })
+    }
+    catch (error) {
+      console.error("Wystąpił błąd:", error)
     }
   }
 

@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { DailySurvey } from '../../models/daily-survey';
 import { FormsModule } from "@angular/forms";
 import { Firestore, Timestamp } from '@angular/fire/firestore';
-import { doc, setDoc } from 'firebase/firestore';
 import { DailyService } from '../../services/daily.service';
 
 @Component({
@@ -23,21 +22,20 @@ export class DailySurveyComponent {
   }
 
   ngOnInit() {
-    this.dailyService.getDailyLog().then(data => this.dailySurvey = data)
+    this.dailyService.getDailyLog(this.dailyService.getCurrentDate()).then(data => this.dailySurvey = data)
   }
 
   async onSubmit(form: NgForm) {
-    console.log(form.value.water)
     try {
-      await setDoc(doc(this.firestore, 'diary', this.dailyService.getCurrentDate()), {
+      let data = {
         "excercise": form.value.excercise,
         "sleep": form.value.sleep,
         "time": Timestamp.now(),
         "training": form.value.training,
         "veggies": form.value.veggies,
         "water": form.value.water
-      }).then(() => { console.log("wysłano dokument") })
-
+      }
+      this.dailyService.sendDocument(data)
     }
     catch (error) {
       console.error("Wystąpił błąd:", error)

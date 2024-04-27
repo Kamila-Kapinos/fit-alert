@@ -1,12 +1,26 @@
+$custom-el-color-primary: #C7DBA6;
+
 .daily-form {
-    margin: 20px; /* Margines dla całego formularza */
-  }
-  
-  .form-control {
-    margin-bottom: 10px; /* Margines na dole dla elementów formularza */
-  }
-  
-  .form-label {
-    margin-bottom: 5px; /* Margines na dole dla etykiet */
-  }
-  
+  margin: 20px;
+  /* Margines dla całego formularza */
+}
+
+.form-control {
+  margin-bottom: 10px;
+  /* Margines na dole dla elementów formularza */
+}
+
+.form-label {
+  margin-bottom: 5px;
+  /* Margines na dole dla etykiet */
+}
+
+.submit {
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  background-color: #FFFFFF;
+  float: right;
+}
+
+.submit:hover {
+  background-color: $custom-el-color-primary;
+}
