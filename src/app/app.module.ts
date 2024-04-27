@@ -16,6 +16,7 @@ import {environment} from "../environments/environments";
 import { FormsModule } from '@angular/forms';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { DailySurvey } from './activities/models/daily-survey';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     }),
     FormsModule,
   ],
-  providers: [],
+  providers: [DailySurvey],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
