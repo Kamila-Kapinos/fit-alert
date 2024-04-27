@@ -4,20 +4,38 @@
     <div class="month-year-bar">
         {{this.month.key}} {{this.year.key}}
     </div> -->
-    <div *ngIf="userDiary" class="diary-cards">
-        <div *ngFor="let entry of userDiary ">
-            <div class="diary-card">
-            <h2>{{ entry.time.toDate() | date: 'mediumDate'}}</h2>
-                <div>
-                    <p>Glasses of water: {{ entry.water }}</p>
-                    <p>Sleep Quality: {{ entry.sleep }}</p>
-                    <p>Training Time: {{ entry.training }}</p>
-                    <p>Veggies in Meals: {{ entry.veggies }}</p>
-                    <p>Excercise of the day: {{ entry.excercise }}</p>
+<div *ngIf="userDiary" class="diary-cards">
+    <div *ngFor="let entry of userDiary ">
+        <div class="diary-card">
+            <div class="diary-card-title">
+                {{ entry.time.toDate() | date: 'mediumDate'}}
+            </div>
+            <div class="diary-card-content">
+                <div class="line">
+                    <div class="text">Glasses of water:</div>
+                    <div class="variable">{{ entry.water }}</div>
                 </div>
+                <div class="line">
+                    <div class="text">Sleep Quality: </div>
+                    <div class="variable" [ngClass]="entry.sleep" >{{ entry.sleep }}</div>
+                </div>
+                <div class="line">
+                    <div class="text">Training Time: </div>
+                    <div class="variable">{{ entry.training }}</div>
+                </div>
+                <div class="line">
+                    <div class="text">Veggies in Meals: </div>
+                    <div class="variable">{{ entry.veggies }}</div>
+                </div>
+                <div class="line">
+                    <div class="text">Excercise of the day: </div>
+                    <div class="variable">{{ entry.excercise }}</div>
+                </div>
+                <div > </div>
             </div>
         </div>
     </div>
+</div>
 <!-- </div> -->
 
 
@@ -30,9 +48,7 @@
         </div>
         <div class="diary-cards">
             <div class="diary-card ">
-                <div class="diary-card-img">
-                    diary card img
-                </div>
+                
                 <div class="diary-card-title">
                     diary card title
                 </div>
@@ -41,9 +57,7 @@
                 </div>
             </div>
             <div class="diary-card ">
-                <div class="diary-card-img">
-                    diary card img 2
-                </div>
+                
                 <div class="diary-card-title">
                     diary card title 2
                 </div>
@@ -72,6 +86,39 @@
                 </div>
                 <div class="diary-card-content">
                     diary card content 4
+                </div>
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 5
+                </div>
+                <div class="diary-card-title">
+                    diary card title 5
+                </div>
+                <div class="diary-card-content">
+                    diary card content 5
+                </div>
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 5
+                </div>
+                <div class="diary-card-title">
+                    diary card title 5
+                </div>
+                <div class="diary-card-content">
+                    diary card content 5
+                </div>
+            </div>
+            <div class="diary-card ">
+                <div class="diary-card-img">
+                    diary card img 5
+                </div>
+                <div class="diary-card-title">
+                    diary card title 5
+                </div>
+                <div class="diary-card-content">
+                    diary card content 5
                 </div>
             </div>
             <div class="diary-card ">
