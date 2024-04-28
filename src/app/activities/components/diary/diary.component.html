@@ -5,7 +5,7 @@
         {{this.month.key}} {{this.year.key}}
     </div> -->
 <div *ngIf="userDiary" class="diary-cards">
-    <div *ngFor="let entry of userDiary ">
+    <div *ngFor="let entry of userDiary.slice().reverse() ">
         <div class="diary-card">
             <div class="diary-card-title">
                 {{ entry.time.toDate() | date: 'mediumDate'}}
@@ -39,7 +39,7 @@
 <!-- </div> -->
 
 
-
+<!--  
 
 <div class="diary-container" *ngFor="let year of diary | keyvalue">
     <div class="diary-months">
@@ -151,4 +151,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
