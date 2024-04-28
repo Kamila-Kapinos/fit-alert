@@ -1,0 +1,34 @@
+.article-container{
+    margin:0;
+    padding:0;
+    display: flex;
+    justify-content: center;
+}
+.article{
+    margin:0;
+    padding:0;
+    display: flex;
+    flex-direction: column;
+    width: min(80rem,100%);
+    justify-content: center;
+    border: solid 2px green;
+
+    &-title{
+        font-size: x-large;
+    }
+    &-subtitle{
+        font-size: larger;
+    }
+    &-img{
+        border:solid 2px red;
+    }
+    &-body{
+        justify-content: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    &-footer{
+        color: darkgray;
+    }
+
+
+}
