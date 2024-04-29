@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {Router} from "@angular/router";
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { Router } from "@angular/router";
 import firebase from 'firebase/compat/app';
-import {User} from "../models/user";
-import { Firestore, collection, getDocs, query } from '@angular/fire/firestore';
+import { User } from "../models/user";
+import { Firestore } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Injectable({
@@ -11,11 +11,16 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 })
 export class AccountService {
 
-  currentUser: User = {name: "", surname: "", email: "", phone: ""};
+  currentUser: User = { name: "", surname: "", email: "", phone: "" };
   userId: any;
   private firestore: Firestore = inject(Firestore)
-  
+
   constructor(private auth: AngularFireAuth, private router: Router) {
+  }
+
+  private saveUserID(result: firebase.auth.UserCredential) {
+    this.userId = result.user?.uid;
+    sessionStorage.setItem("userID", this.userId);
   }
 
   loginWithEmail(email: string, password: string) {
@@ -23,18 +28,20 @@ export class AccountService {
       .then((result) => {
         console.log('Logowanie udane');
         this.router.navigate(['/']);
-        this.userId = result.user?.uid
+        this.saveUserID(result);
       })
       .catch(error => {
         return Promise.reject(error.message);
       });
   }
+
+
   loginWithGoogle() {
     return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
         console.log('Logowanie przez Google udane');
         this.router.navigate(['/']);
-        this.userId = result.user?.uid
+        this.saveUserID(result);
       })
       .catch(error => {
         return Promise.reject(error.message);
@@ -46,7 +53,7 @@ export class AccountService {
       .then((result) => {
         console.log('Logowanie przez Facebooka udane');
         this.router.navigate(['/']);
-        this.userId = result.user?.uid
+        this.saveUserID(result);
       })
       .catch(error => {
         return Promise.reject(error.message);
@@ -65,7 +72,7 @@ export class AccountService {
       .catch(error => {
         return Promise.reject(error.message);
       });
-    }
+  }
 
   async saveUserData(data: Object) {
     try {
@@ -77,7 +84,8 @@ export class AccountService {
   }
 
   async getUserData() {
-    try{
+    try {
+      this.userId = sessionStorage.getItem("userID")
       let user_data = (await getDoc(doc(this.firestore, "user_data", this.userId)));
       if (user_data.exists()) {
         this.currentUser.name = user_data.data()['name'];
@@ -85,16 +93,15 @@ export class AccountService {
         this.currentUser.email = user_data.data()['email'];
         this.currentUser.phone = user_data.data()['phone']
 
-        // console.log("current user", this.currentUser)
         return this.currentUser
       }
 
       else {
         console.log("No current user!")
         return this.currentUser
-      }      
+      }
     }
-    catch(error){
+    catch (error) {
       console.error("Please log in to continue", error);
       return this.currentUser
     }
