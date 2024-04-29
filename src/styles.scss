@@ -18,3 +18,7 @@ body {
   background-color: $primary-bg-color;
   font-family: $fontFamilyIstokWeb; // Ustawienie czcionki dla całej aplikacji
 }
+
+.btn {
+  border-radius: 10px;
+}

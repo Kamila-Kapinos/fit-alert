@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import firebase from "firebase/compat";
 import {User} from "../../models/user";
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -12,6 +13,7 @@ import {NgIf} from "@angular/common";
     FormsModule,
     ReactiveFormsModule,
     NgIf,
+    RouterLink,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
