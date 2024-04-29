@@ -68,11 +68,7 @@ export class SignUpComponent implements OnInit {
           console.error('Błąd rejestracji:', error);
         });
     } else {
-      if (this.signupForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
-        console.log('Password and confirm password must match');
-      } else {
-        this.signupForm.markAllAsTouched();
-      }
+      this.signupForm.markAllAsTouched();
     }
   }
 }
