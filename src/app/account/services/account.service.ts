@@ -9,7 +9,10 @@ import {User} from "../models/user";
 })
 export class AccountService {
 
-  constructor(private auth: AngularFireAuth, private router: Router) {}
+  currentUser: User = {name: "", surname: "", email: "", phone: "", hashedPassword: ""};
+  
+  constructor(private auth: AngularFireAuth, private router: Router) {
+  }
 
   loginWithEmail(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password)
@@ -42,8 +45,9 @@ export class AccountService {
         return Promise.reject(error.message);
       });
   }
-
+  
   signUpWithUser(user: User, password: string) {
+    this.currentUser = user;
     return this.auth.createUserWithEmailAndPassword(user.email, password)
       .then((result) => {
         console.log('Rejestracja udana');
