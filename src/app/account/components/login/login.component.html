@@ -15,13 +15,22 @@
         <button type="submit" class="btn login-button" [disabled]="loginForm.invalid">Sign in</button>
       </div>
       <p *ngIf="errorMessage" class="error mt-3 text-danger">{{ errorMessage }}</p>
+      <div>
+        <button
+          type="button"
+          class="btn btn-light"
+          [routerLink]="['/signup']"
+        >
+          Create a new account
+        </button>
+      </div>
     </form>
   </div>
-  <button id="google-login-button" class="google-login-button mt-4" (click)="loginWithGoogle()">
+  <button id="google-login-button" class="btn google-login-button mt-4" (click)="loginWithGoogle()">
     <img src="assets/google.png" alt="Google Logo">
     <span>Log in with Google</span>
   </button>
-  <button id="facebook-login-button" class="facebook-login-button mt-4" (click)="loginWithFacebook()">
+  <button id="facebook-login-button" class="btn facebook-login-button mt-4" (click)="loginWithFacebook()">
     <img src="assets/facebook.png" alt="Facebook Logo">
     <span>Log in with Facebook</span>
   </button>
