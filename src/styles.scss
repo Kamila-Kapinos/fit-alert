@@ -1,8 +1,20 @@
 @import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 /* Importing Bootstrap SCSS file. */
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+// Adres URL dla czcionki Istok Web z Google Fonts
+$fontPathIstokWeb: 'https://fonts.googleapis.com/css2?family=Istok+Web&display=swap';
+
+// Nazwa czcionki
+$fontFamilyIstokWeb: 'Istok Web', sans-serif;
+
+// Importowanie czcionki Istok Web
+@import url($fontPathIstokWeb);
+
+// Kolor tła dla całej aplikacji
 $primary-bg-color: #FAF9F6;
 
 body {
   background-color: $primary-bg-color;
+  font-family: $fontFamilyIstokWeb; // Ustawienie czcionki dla całej aplikacji
 }
