@@ -10,7 +10,6 @@ $custom-el-color-primary: #C7DBA6;
   color: #000000;
   border: 1px solid rgba(0, 0, 0, 0.35);
   padding: 5px 10px;
-  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -24,7 +23,7 @@ $custom-el-color-primary: #C7DBA6;
   align-items: center;
   justify-content: center;
   color: #000000;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.35);
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
@@ -39,17 +38,15 @@ $custom-el-color-primary: #C7DBA6;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000; /* Kolor tekstu na przycisku */
-  border: none;
-  //background-color: #3b5998;
-  border-radius: 10px; /* Zaokrąglenie rogów */
-  padding: 10px 20px; /* Wewnętrzny odstęp */
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Animacja zmiany koloru tła */
+  transition: background-color 0.3s ease;
 
-  /* Stylowanie ikony Facebook */
   img {
-    width: 20px; /* Dostosuj rozmiar ikony */
-    margin-right: 10px; /* Odstęp między ikoną a tekstem */
+    width: 20px;
+    margin-right: 10px;
   }
 }

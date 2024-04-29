@@ -1,7 +1,6 @@
-<div class="signup">
-  <h1>Sign up</h1>
+<div class="mt-4 mb-4">
+  <h1 class="text-center mb-4">Sign up</h1>
   <div class="signup-container container py-4 px-4">
-
     <form class="row g-3" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div class="col-md-6">
         <label for="inputName" class="form-label">Name</label>
@@ -38,8 +37,15 @@
           </label>
         </div>
       </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign up</button>
+      <div class="col-12 mt-3">
+        <button
+          type="button"
+          class="btn btn-danger me-3"
+          [routerLink]="['/login']"
+        >
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-success" [disabled]="signupForm.invalid">Sign up</button>
       </div>
     </form>
   </div>

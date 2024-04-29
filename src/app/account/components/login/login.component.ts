@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {AccountService} from "../../services/account.service";
+import {RouterLink} from "@angular/router";
 
 
 @Component({
@@ -11,6 +12,7 @@ import {AccountService} from "../../services/account.service";
     FormsModule,
     NgIf,
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
