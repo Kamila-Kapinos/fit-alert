@@ -3,6 +3,5 @@ export interface User {
   surname: string;
   email: string;
   phone: string;
-  hashedPassword: string; // Zamiast przechowywać czyste hasło, przechowujemy jego zaszyfrowaną wersję
 }
 

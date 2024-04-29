@@ -9,8 +9,8 @@ import {User} from "../models/user";
 })
 export class AccountService {
 
-  currentUser: User = {name: "", surname: "", email: "", phone: "", hashedPassword: ""};
-  
+  currentUser: User = {name: "", surname: "", email: "", phone: ""};
+
   constructor(private auth: AngularFireAuth, private router: Router) {
   }
 
@@ -46,16 +46,15 @@ export class AccountService {
       });
   }
 
-  signUpWithUser(user: User) {
+  signUpWithUser(user: User, password: string) {
     this.currentUser = user;
-    return this.auth.createUserWithEmailAndPassword(user.email, user.hashedPassword)
+    return this.auth.createUserWithEmailAndPassword(user.email, password)
       .then((result) => {
         console.log('Rejestracja udana');
-        // Tutaj możesz dodać logikę zapisywania innych danych użytkownika do bazy danych
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       })
       .catch(error => {
         return Promise.reject(error.message);
       });
-  }
+    }
 }
