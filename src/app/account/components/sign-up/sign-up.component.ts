@@ -1,14 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
-import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import firebase from "firebase/compat";
 import {User} from "../../models/user";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
@@ -26,28 +29,59 @@ export class SignUpComponent implements OnInit {
       phone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
-    });
+    }, { validator: this.passwordMatchValidator });
+  };
+
+
+
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    const isValid = password === confirmPassword;
+
+    if (!isValid) {
+      // Ustaw błąd "passwordMismatch" dla całego formularza
+      formGroup.setErrors({ passwordMismatch: true });
+    } else {
+      // Jeśli hasła są zgodne, usuń błąd "passwordMismatch"
+      formGroup.setErrors(null);
+    }
+
+    return isValid ? null : { passwordMismatch: true };
   }
 
+
   onSubmit() {
+    const formData = this.signupForm.value;
+    const password = formData.password;
+    const confirmPassword = formData.confirmPassword;
+
     if (this.signupForm.valid) {
-      const formData = this.signupForm.value;
       const newUser: User = {
         name: formData.name,
         surname: formData.surname,
         email: formData.email,
         phone: formData.phone,
-        hashedPassword: formData.password // Zastosowanie zaszyfrowanego hasła
       };
-      this.accountService.signUpWithUser(newUser)
+
+      this.accountService.signUpWithUser(newUser, password)
+        .then(() => {
+          console.log('Rejestracja udana');
+        })
         .catch(error => {
-          // Obsługa błędów rejestracji
           console.error('Błąd rejestracji:', error);
-          // Tutaj możesz wyświetlić odpowiedni komunikat dla użytkownika
         });
     } else {
-      // Jeśli formularz jest nieprawidłowy, oznacz wszystkie pola jako dotknięte, aby wyświetlić walidatory
-      this.signupForm.markAllAsTouched();
+      // Sprawdź, czy wystąpił błąd w potwierdzeniu hasła
+      if (this.signupForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
+        // Wyświetl komunikat na konsoli
+        console.log('Password and confirm password must match');
+      } else {
+        // W innym przypadku oznacz tylko pola jako dotknięte
+        this.signupForm.markAllAsTouched();
+      }
     }
   }
+
+
 }
