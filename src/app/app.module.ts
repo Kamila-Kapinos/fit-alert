@@ -23,7 +23,7 @@ import { DailySurvey } from './activities/models/daily-survey';
     AppComponent,
     NavbarComponent,
     LayoutComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
