@@ -6,6 +6,7 @@ import {SignUpComponent} from "./account/components/sign-up/sign-up.component";
 import {HomeComponent} from "./home-component/home.component";
 import {DiaryComponent} from "./activities/components/diary/diary.component";
 import { DailySurveyComponent } from './activities/components/daily-survey/daily-survey.component';
+import { AccountSettingsComponent } from './account/components/account-settings/account-settings.component';
 import { ArticleComponent } from './articles/article/article.component';
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: 'today',
         component: DailySurveyComponent
+      },
+      {
+        path: 'account',
+        component: AccountSettingsComponent
       },
       {
         path: 'article',

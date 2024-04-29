@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {Router, RouterLink} from "@angular/router";
+import {AccountService} from "../../services/account.service";
 
 
 @Component({
@@ -11,26 +10,48 @@ import {Router, RouterLink} from "@angular/router";
   imports: [
     FormsModule,
     NgIf,
-    RouterLink
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private auth: AngularFireAuth, private router: Router) {}
-
+  constructor(private accountService: AccountService, private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
   loginWithEmail() {
-    this.auth.signInWithEmailAndPassword(this.email, this.password)
-      .then(() => {
-        console.log('Logowanie udane');
-        this.router.navigate(['/']);
-      })
+    this.errorMessage = '';
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Please enter valid email and password.';
+      return;
+    }
+
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+
+    this.accountService.loginWithEmail(email, password)
       .catch(error => {
-        this.errorMessage = error.message;
+        this.errorMessage = 'Invalid email or password';
+      });
+  }
+
+  loginWithGoogle() {
+    this.accountService.loginWithGoogle()
+      .catch(error => {
+        this.errorMessage = error;
+      });
+  }
+
+  loginWithFacebook() {
+    this.accountService.loginWithFacebook()
+      .catch(error => {
+        this.errorMessage = error;
       });
   }
 }
