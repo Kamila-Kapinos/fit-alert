@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import firebase from 'firebase/compat/app';
 import { User } from "../models/user";
 import { Firestore } from '@angular/fire/firestore';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class AccountService {
   private firestore: Firestore = inject(Firestore)
 
   constructor(private auth: AngularFireAuth, private router: Router) {
+    this.getUserData();
   }
 
   private saveUserID(result: firebase.auth.UserCredential) {
@@ -67,16 +68,23 @@ export class AccountService {
         this.router.navigate(['/login']);
 
         this.userId = result.user?.uid
+        this.createUserCollections()
         this.saveUserData(this.currentUser)
       })
       .catch(error => {
         return Promise.reject(error.message);
       });
   }
+  private async createUserCollections(){
+    await setDoc(doc(this.firestore, 'users', this.userId), {})
+    await setDoc(doc(this.firestore, 'users/'+this.userId+"/diary", "init"), {})
+    await setDoc(doc(this.firestore, 'users/'+this.userId+"/accountData", "init"), {})
+    await setDoc(doc(this.firestore, 'users/'+this.userId+"/activities", "init"), {})
+  }
 
   async saveUserData(data: Object) {
     try {
-      await setDoc(doc(this.firestore, 'user_data', this.userId), data).then(() => { console.log("wysłano dokument") })
+      await setDoc(doc(this.firestore, 'users/'+this.userId+"/accountData", "data"), data).then(() => { console.log("wysłano dokument") })
     }
     catch (error) {
       console.error("Wystąpił błąd:", error)
