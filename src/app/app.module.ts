@@ -22,7 +22,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     AppComponent,
     NavbarComponent,
     LayoutComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),

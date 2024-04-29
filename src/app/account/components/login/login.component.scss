@@ -18,3 +18,38 @@ $custom-el-color-primary: #C7DBA6;
 .login-button:hover {
   background-color: $custom-el-color-primary;
 }
+
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+    margin-right: 10px;
+  }
+}
+
+.facebook-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000; /* Kolor tekstu na przycisku */
+  border: none;
+  //background-color: #3b5998;
+  border-radius: 10px; /* Zaokrąglenie rogów */
+  padding: 10px 20px; /* Wewnętrzny odstęp */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Animacja zmiany koloru tła */
+
+  /* Stylowanie ikony Facebook */
+  img {
+    width: 20px; /* Dostosuj rozmiar ikony */
+    margin-right: 10px; /* Odstęp między ikoną a tekstem */
+  }
+}
