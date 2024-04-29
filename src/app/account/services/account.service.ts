@@ -43,15 +43,14 @@ export class AccountService {
       });
   }
 
-  signUpWithUser(user: User) {
-    return this.auth.createUserWithEmailAndPassword(user.email, user.hashedPassword)
+  signUpWithUser(user: User, password: string) {
+    return this.auth.createUserWithEmailAndPassword(user.email, password)
       .then((result) => {
         console.log('Rejestracja udana');
-        // Tutaj możesz dodać logikę zapisywania innych danych użytkownika do bazy danych
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       })
       .catch(error => {
         return Promise.reject(error.message);
       });
-  }
+    }
 }

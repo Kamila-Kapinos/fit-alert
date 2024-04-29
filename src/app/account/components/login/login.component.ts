@@ -25,8 +25,8 @@ export class LoginComponent {
       password: ['', [Validators.required]]
     });
   }
-  //TODO fix error message
   loginWithEmail() {
+    this.errorMessage = '';
     if (this.loginForm.invalid) {
       this.errorMessage = 'Please enter valid email and password.';
       return;
@@ -37,7 +37,7 @@ export class LoginComponent {
 
     this.accountService.loginWithEmail(email, password)
       .catch(error => {
-        this.errorMessage = error;
+        this.errorMessage = 'Invalid email or password';
       });
   }
 

@@ -14,7 +14,7 @@
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn login-button" [disabled]="loginForm.invalid">Sign in</button>
       </div>
-      <p *ngIf="errorMessage" class="error mt-3">{{ errorMessage }}</p>
+      <p *ngIf="errorMessage" class="error mt-3 text-danger">{{ errorMessage }}</p>
     </form>
   </div>
   <button id="google-login-button" class="google-login-button mt-4" (click)="loginWithGoogle()">
