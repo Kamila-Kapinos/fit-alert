@@ -81,6 +81,7 @@ export class SignUpComponent implements OnInit {
       } else {
         // W innym przypadku oznacz tylko pola jako dotknięte
         this.signupForm.markAllAsTouched();
+        console.log("Something went wrong")
       }
     }
   }

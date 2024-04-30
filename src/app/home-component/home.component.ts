@@ -9,7 +9,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  user: string = 'Sam';
+  
+  user = sessionStorage.getItem('userName');
   counter: number = 0;
   yourChallenge: string = ''
 
