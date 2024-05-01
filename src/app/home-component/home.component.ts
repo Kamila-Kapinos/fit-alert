@@ -10,7 +10,7 @@ import {RouterLink} from "@angular/router";
   standalone: true,
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   challenges = ['Eat two carrots', 'Prepare a veggie meal', 'Do 10 push-ups'];
   trendingArticles: any[] = [];
 
-  constructor(private articlesService: ArticlesService) { }
+  constructor(private articlesService: ArticlesService, ) { }
 
   ngOnInit(): void {
     this.yourChallenge = this.getRandomChallenge();

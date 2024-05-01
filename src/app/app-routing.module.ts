@@ -40,7 +40,7 @@ const routes: Routes = [
         component: AccountSettingsComponent
       },
       {
-        path: 'article',
+        path: 'article/:articleID',
         component: ArticleComponent
       }
     ]

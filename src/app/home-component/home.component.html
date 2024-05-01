@@ -33,7 +33,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-3 mb-4 card-art py-4 px-4" *ngFor="let article of trendingArticles">
-          <button type="button" class="article-button" [routerLink]="['/article']">
+          <button type="button" class="article-button" [routerLink]="['/article',article.articleID]" >
             <img class="img-fluid rounded" src="{{ article['article-img-url'] }}" alt="article.title">
             <h4 class="mt-2">{{ article.title }}</h4>
           </button>
