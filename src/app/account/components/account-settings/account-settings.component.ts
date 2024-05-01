@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
@@ -11,7 +11,7 @@ import { AccountService } from '../../services/account.service';
   templateUrl: './account-settings.component.html',
   styleUrl: './account-settings.component.scss',
 })
-export class AccountSettingsComponent {
+export class AccountSettingsComponent implements OnInit{
 
   public user: User;
 
