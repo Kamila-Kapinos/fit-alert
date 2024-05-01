@@ -78,6 +78,16 @@ $card-color: #F0F0F0;
   margin-bottom: 1rem; /* Dodajemy odstęp między kartami */
 }
 
+.article-button {
+  background-color: $custom-el-color-secondary;
+  border: none; /* Usuwanie obramowania */
+  color: white; /* Kolor tekstu */
+  padding: 10px; /* Wewnętrzne wypełnienie */
+  border-radius: 5px; /* Zaokrąglenie krawędzi */
+  cursor: pointer; /* Kursor wskazujący na interaktywny element */
+  transition: background-color 0.3s ease; /* Animacja zmiany koloru tła */
+}
+
 /* Media queries */
 @media (min-width: 768px) {
   /* Na ekranach o szerokości co najmniej 768px */
