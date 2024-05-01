@@ -25,7 +25,7 @@
       <div class="col-12">
         <label for="inputPassword2" class="form-label">Repeat password</label>
         <input type="password" class="form-control" id="inputPassword2" formControlName="confirmPassword" required>
-        <div *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordMismatch']" class="invalid-feedback">
+        <div *ngIf="signupForm.errors?.['passwordMismatch']" class="error-message text-danger mt-2">
           Password and confirm password must match.
         </div>
       </div>

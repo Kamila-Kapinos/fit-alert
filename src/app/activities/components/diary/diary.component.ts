@@ -22,6 +22,7 @@ export class DiaryComponent {
   ngOnInit(): void{
     this.dailyService.getDiary().then(
       data => {this.userDiary = data;
+        console.log(data)
     }).catch((error) => {console.error('Error fetching diary data:', error);
     });
     // console.log(this.diary2);
