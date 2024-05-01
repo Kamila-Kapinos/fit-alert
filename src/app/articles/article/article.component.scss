@@ -52,6 +52,7 @@ $breakpoint:1000px;
         max-width: 60%;
         flex-grow: 0;
         flex-shrink: 0;
+        border-radius: 10px;
         aspect-ratio: 16 / 9 ;
         float:left;
         @media screen and (max-width:$breakpoint) {
