@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import firebase from "firebase/compat";
 import {User} from "../../models/user";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
@@ -32,9 +31,7 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
-  };
-
-
+  }
 
   passwordMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
@@ -42,16 +39,13 @@ export class SignUpComponent implements OnInit {
     const isValid = password === confirmPassword;
 
     if (!isValid) {
-      // Ustaw błąd "passwordMismatch" dla całego formularza
       formGroup.setErrors({ passwordMismatch: true });
     } else {
-      // Jeśli hasła są zgodne, usuń błąd "passwordMismatch"
       formGroup.setErrors(null);
     }
 
     return isValid ? null : { passwordMismatch: true };
   }
-
 
   onSubmit() {
     const formData = this.signupForm.value;
@@ -74,17 +68,7 @@ export class SignUpComponent implements OnInit {
           console.error('Błąd rejestracji:', error);
         });
     } else {
-      // Sprawdź, czy wystąpił błąd w potwierdzeniu hasła
-      if (this.signupForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
-        // Wyświetl komunikat na konsoli
-        console.log('Password and confirm password must match');
-      } else {
-        // W innym przypadku oznacz tylko pola jako dotknięte
-        this.signupForm.markAllAsTouched();
-        console.log("Something went wrong")
-      }
+      this.signupForm.markAllAsTouched();
     }
   }
-
-
 }
