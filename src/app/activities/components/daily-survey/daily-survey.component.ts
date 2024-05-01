@@ -35,7 +35,7 @@ export class DailySurveyComponent {
         "veggies": form.value.veggies,
         "water": form.value.water
       }
-      this.dailyService.sendDocument(data)
+      this.dailyService.sendDiaryLog(data)
     }
     catch (error) {
       console.error("Wystąpił błąd:", error)

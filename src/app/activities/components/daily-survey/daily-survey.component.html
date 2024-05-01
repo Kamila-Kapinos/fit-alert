@@ -1,56 +1,58 @@
-<form class="daily-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+<div class="py-4 px-4">
+  <form class="daily-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="row ">
-        <div class="col-sm">
-            <label for="water" class="form-label">Glasses of water</label>
-        </div>
-        <div class="col-sm">
-            <input type="text" class="form-control" id="water" name="water" [(ngModel)]="dailySurvey.glassesOfWater">
-        </div>
+      <div class="col-sm">
+        <label for="water" class="form-label">Glasses of water</label>
+      </div>
+      <div class="col-sm">
+        <input type="text" class="form-control" id="water" name="water" [(ngModel)]="dailySurvey.glassesOfWater">
+      </div>
     </div>
 
     <div class="row ">
-        <div class="col-sm">
-            <label for="sleep" class="form-label">Sleep quality</label>
-        </div>
-        <div class="col-sm">
-            <input type="text" class="form-control" id="sleep" name="sleep" [(ngModel)]="dailySurvey.sleepQuality">
-        </div>
+      <div class="col-sm">
+        <label for="sleep" class="form-label">Sleep quality</label>
+      </div>
+      <div class="col-sm">
+        <input type="text" class="form-control" id="sleep" name="sleep" [(ngModel)]="dailySurvey.sleepQuality">
+      </div>
     </div>
 
     <div class="row ">
-        <div class="col-sm">
-            <label for="training" class="form-label">Training time in minutes</label>
-        </div>
-        <div class="col-sm">
-            <input type="text" class="form-control" id="training" name="training"
-                [(ngModel)]="dailySurvey.trainingTime">
-        </div>
+      <div class="col-sm">
+        <label for="training" class="form-label">Training time in minutes</label>
+      </div>
+      <div class="col-sm">
+        <input type="text" class="form-control" id="training" name="training"
+               [(ngModel)]="dailySurvey.trainingTime">
+      </div>
     </div>
 
     <div class="row ">
-        <div class="col-sm">
-            <label for="veggies" class="form-label">Vegetables in meals</label>
-        </div>
-        <div class="col-sm">
-            <input type="text" class="form-control" id="veggies" name="veggies"
-                [(ngModel)]="dailySurvey.veggiesInMeals">
-        </div>
+      <div class="col-sm">
+        <label for="veggies" class="form-label">Vegetables in meals</label>
+      </div>
+      <div class="col-sm">
+        <input type="text" class="form-control" id="veggies" name="veggies"
+               [(ngModel)]="dailySurvey.veggiesInMeals">
+      </div>
     </div>
 
     <div class="row ">
-        <div class="col-sm">
-            <label for="excercise" class="form-label">Excercise of the day</label>
-        </div>
-        <div class="col-sm">
-            <input type="text" class="form-control" id="excercise" name="excercise"
-                [(ngModel)]="dailySurvey.excerciseOfTheDay">
-        </div>
+      <div class="col-sm">
+        <label for="excercise" class="form-label">Excercise of the day</label>
+      </div>
+      <div class="col-sm">
+        <input type="text" class="form-control" id="excercise" name="excercise"
+               [(ngModel)]="dailySurvey.excerciseOfTheDay">
+      </div>
     </div>
 
     <div class="row">
-        <div>
-            <button type="submit" class="submit btn">Save diary</button>
-        </div>
+      <div>
+        <button type="submit" class="submit btn">Save diary</button>
+      </div>
     </div>
 
-</form>
+  </form>
+</div>

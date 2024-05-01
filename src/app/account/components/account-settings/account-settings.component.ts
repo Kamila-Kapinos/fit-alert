@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
@@ -11,14 +11,41 @@ import { AccountService } from '../../services/account.service';
   templateUrl: './account-settings.component.html',
   styleUrl: './account-settings.component.scss',
 })
-export class AccountSettingsComponent {
+export class AccountSettingsComponent implements OnInit{
 
   public user: User;
-  constructor(public service: AccountService){
+
+  constructor(public service: AccountService) {
     this.user = service.currentUser
   }
 
+  ngOnInit() {
+    try {
+      this.service.getUserData().then((data) => { this.user = data; console.log("user data", data) })
+    }
+    catch (error) {
+      console.error("Please log in to continue");
+    }
+
+  }
+
   onSubmit(form: NgForm) {
-    console.log("Submitted form", form.value())
+    if (form.valid) {
+      this.service.saveUserData(this.user)
+      console.log("Saved data")
+    }
+    else {
+      console.log("Not valid form")
+    }
+
+  }
+
+  public getFullName() {
+    if (this.user.surname == "") {
+      return "John Doe"
+    }
+    else {
+      return this.user.name + " " + this.user.surname
+    }
   }
 }
