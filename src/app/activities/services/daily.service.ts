@@ -8,17 +8,20 @@ import { DailySurvey } from '../models/daily-survey';
 })
 export class DailyService {
   private firestore: Firestore = inject(Firestore)
+  private userId: any;
   constructor(private dailySurvey: DailySurvey) {
+    this.userId = sessionStorage.getItem("userID");
+
   }
 
   async getDiary() {
     return (
-      await getDocs(query(collection(this.firestore, 'diary')))
+      await getDocs(query(collection(this.firestore, 'users/' + this.userId + '/diary')))
     ).docs.map((diary) => diary.data())
   }
 
   async getDailyLog(docName: string) {
-    let log = (await getDoc(doc(this.firestore, "diary", docName)));
+    let log = (await getDoc(doc(this.firestore, 'users/' + this.userId + '/diary', docName)));
     if (log.exists()) {
       this.dailySurvey.creationTime = log.data()['time']
       this.dailySurvey.excerciseOfTheDay = log.data()['excercise']
@@ -35,9 +38,9 @@ export class DailyService {
     }
   }
 
-  async sendDocument(data: Object) {
+  async sendDiaryLog(data: Object) {
     try {
-      await setDoc(doc(this.firestore, 'diary', this.getCurrentDate()), data).then(() => { console.log("wysłano dokument") })
+      await setDoc(doc(this.firestore, 'users/' + this.userId + '/diary', this.getCurrentDate()), data).then(() => { console.log("wysłano dokument") })
     }
     catch (error) {
       console.error("Wystąpił błąd:", error)
