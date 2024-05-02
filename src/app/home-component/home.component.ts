@@ -11,7 +11,7 @@ import { NotificationsService } from '../services/notifications.service';
   standalone: true,
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -23,7 +23,9 @@ export class HomeComponent implements OnInit {
   challenges = ['Eat two carrots', 'Prepare a veggie meal', 'Do 10 push-ups'];
   trendingArticles: any[] = [];
 
+
   constructor(private articlesService: ArticlesService, private notificationsService: NotificationsService) { }
+
 
   ngOnInit(): void {
     this.yourChallenge = this.getRandomChallenge();
