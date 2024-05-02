@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DailySurvey } from './activities/models/daily-survey';
+import {AuthGuard} from "@angular/fire/auth-guard";
+import {getAuth, provideAuth} from "@angular/fire/auth";
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { DailySurvey } from './activities/models/daily-survey';
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
     CommonModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),

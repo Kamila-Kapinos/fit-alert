@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
 import { Timestamp, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailyService } from '../../activities/services/daily.service';
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -150,4 +151,21 @@ export class AccountService {
     return data;
   }
 
+  async isAuthenticated() {
+    const user = await this.auth.currentUser;
+    console.log({isAuth: user})
+    return user !== null;
+  }
+
+  logout() {
+    this.auth.signOut()
+      .then(() => {
+        // Logout successful
+        alert('Logout successful.');
+      })
+      .catch((error) => {
+        // An error occurred
+        alert('An error occurred while logging out: ' + error.message);
+      });
+  }
 }

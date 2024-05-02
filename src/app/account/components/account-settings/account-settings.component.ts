@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
 import { AccountService } from '../../services/account.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-account-settings',
@@ -15,7 +16,8 @@ export class AccountSettingsComponent implements OnInit{
 
   public user: User;
 
-  constructor(public service: AccountService) {
+
+  constructor(public service: AccountService, private router: Router) {
     this.user = service.currentUser
   }
 
@@ -47,5 +49,10 @@ export class AccountSettingsComponent implements OnInit{
     else {
       return this.user.name + " " + this.user.surname
     }
+  }
+
+  logout() {
+    this.service.logout();
+    this.router.navigate(['/login']);
   }
 }
