@@ -18,7 +18,7 @@
   </div>
   <div class="daily-ch mt-4 py-4 px-4">
     <h2 class="text-center">Daily challange</h2>
-    <div class="container-challange text-center py-4 px-4">
+    <div class=" container-fluid container-challange text-center py-4 px-4">
       <div class="card-challange text-dark py-4 px-4">{{ yourChallenge }}</div>
       <div class="overlay">
         <div class="text text-dark">?</div>
@@ -33,18 +33,19 @@
   </div>
   <div class="mt-4 py-4 px-4">
     <h2 class="text-center">Trending articles</h2>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 col-lg-3 mb-4 card-art py-4 px-4" *ngFor="let article of trendingArticles">
-          <button type="button" class="article-button" [routerLink]="['/article',article.articleID]" >
-            <img class="img-fluid rounded" src="{{ article['article-img-url'] }}" alt="article.title">
-            <h4 class="mt-2">{{ article.title }}</h4>
-          </button>
+        <div class="col-md-6 col-lg-3 mb-4" *ngFor="let article of trendingArticles">
+          <div class="card-art py-4 px-4">
+            <button type="button" class="article-button" [routerLink]="['/article',article.articleID]">
+              <img class="img-fluid rounded" src="{{ article['article-img-url'] }}" alt="{{ article.title }}">
+              <h5 class="mt-2">{{ article.title }}</h5>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
 

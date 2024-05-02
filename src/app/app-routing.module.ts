@@ -8,9 +8,10 @@ import {DiaryComponent} from "./activities/components/diary/diary.component";
 import { DailySurveyComponent } from './activities/components/daily-survey/daily-survey.component';
 import { AccountSettingsComponent } from './account/components/account-settings/account-settings.component';
 import { ArticleComponent } from './articles/article/article.component';
+import {AuthGuard} from "./account/services/auth.guard";
+
 
 const routes: Routes = [
-
   {
     path: 'login',
     component: LoginComponent,
@@ -22,6 +23,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivateChild: [AuthGuard], // Dodanie AuthGuard jako strażnika dla dzieci
     children: [
       {
         path: '',
@@ -44,7 +46,7 @@ const routes: Routes = [
         component: ArticleComponent
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
