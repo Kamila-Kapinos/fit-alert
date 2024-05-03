@@ -1,28 +1,35 @@
-import { Component, Input } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
-import { NgForOf } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-errors',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, NgIf],
   templateUrl: './errors.component.html',
   styleUrl: './errors.component.scss',
 })
-export class ErrorsComponent {
+export class ErrorsComponent implements OnInit {
   @Input() control?: any;
   errors: string[] = [];
 
-  ngOnChanges(): void {
-    this.errors =
-      this.control && this.control instanceof FormControl && this.control.errors
-        ? Object.keys(this.control?.errors).map((key) =>
-            this.getErrorTranslation(key),
-          )
-        : [];
+  fControl?: FormControl;
+
+  ngOnInit() {
+    if (this.control && this.control instanceof FormControl) {
+      const control = this.control;
+      this.fControl = control;
+      control.statusChanges.subscribe(() => {
+        this.errors = control.errors
+          ? Object.keys(control.errors).map((key) =>
+              this.getErrorDescription(key),
+            )
+          : [];
+      });
+    }
   }
 
-  private getErrorTranslation(key: string): string {
+  private getErrorDescription(key: string): string {
     switch (key) {
       case 'required':
         return 'This field is required.';
