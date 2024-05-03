@@ -3,22 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {NavbarComponent} from "./common-components/components/navbar/navbar.component";
-import {LayoutComponent} from "./common-components/components/layout/layout.component";
-import {FooterComponent} from "./common-components/components/footer/footer.component";
-import {CollapseModule} from "ngx-bootstrap/collapse";
-import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
-import {CommonModule} from "@angular/common";
+import { NavbarComponent } from './common-components/components/navbar/navbar.component';
+import { LayoutComponent } from './common-components/components/layout/layout.component';
+import { FooterComponent } from './common-components/components/footer/footer.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import {AngularFireModule} from "@angular/fire/compat";
-import {environment} from "../environments/environments";
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environments';
 import { FormsModule } from '@angular/forms';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DailySurvey } from './activities/models/daily-survey';
-import {AuthGuard} from "@angular/fire/auth-guard";
-import {getAuth, provideAuth} from "@angular/fire/auth";
+import { AuthGuard } from '@angular/fire/auth-guard';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -41,11 +41,11 @@ import {getAuth, provideAuth} from "@angular/fire/auth";
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
     FormsModule,
   ],
   providers: [DailySurvey],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

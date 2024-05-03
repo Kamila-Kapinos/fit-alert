@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LayoutComponent} from "./common-components/components/layout/layout.component";
-import {LoginComponent} from "./account/components/login/login.component";
-import {SignUpComponent} from "./account/components/sign-up/sign-up.component";
-import {HomeComponent} from "./home-component/home.component";
-import {DiaryComponent} from "./activities/components/diary/diary.component";
+import { LayoutComponent } from './common-components/components/layout/layout.component';
+import { LoginComponent } from './account/components/login/login.component';
+import { SignUpComponent } from './account/components/sign-up/sign-up.component';
+import { HomeComponent } from './home-component/home.component';
+import { DiaryComponent } from './activities/components/diary/diary.component';
 import { DailySurveyComponent } from './activities/components/daily-survey/daily-survey.component';
 import { AccountSettingsComponent } from './account/components/account-settings/account-settings.component';
 import { ArticleComponent } from './articles/article/article.component';
-import {AuthGuard} from "./account/services/auth.guard";
-
+import { AuthGuard } from './account/services/auth.guard';
 
 const routes: Routes = [
   {
@@ -35,22 +34,22 @@ const routes: Routes = [
       },
       {
         path: 'today',
-        component: DailySurveyComponent
+        component: DailySurveyComponent,
       },
       {
         path: 'account',
-        component: AccountSettingsComponent
+        component: AccountSettingsComponent,
       },
       {
         path: 'article/:articleID',
-        component: ArticleComponent
-      }
-    ]
+        component: ArticleComponent,
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

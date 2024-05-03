@@ -6,10 +6,10 @@
           {{this.month.key}} {{this.year.key}}
       </div> -->
   <div *ngIf="userDiary" class="diary-cards">
-    <div *ngFor="let entry of userDiary.slice().reverse() ">
+    <div *ngFor="let entry of userDiary.slice().reverse()">
       <div class="diary-card">
         <div class="diary-card-title">
-          {{ entry.time.toDate() | date: 'mediumDate'}}
+          {{ entry.time.toDate() | date: "mediumDate" }}
         </div>
         <div class="diary-card-content">
           <div class="line">
@@ -17,22 +17,24 @@
             <div class="variable">{{ entry.water }}</div>
           </div>
           <div class="line">
-            <div class="text">Sleep Quality: </div>
-            <div class="variable" [ngClass]="entry.sleep" >{{ entry.sleep }}</div>
+            <div class="text">Sleep Quality:</div>
+            <div class="variable">
+              {{ entry.sleep }}
+            </div>
           </div>
           <div class="line">
-            <div class="text">Training Time: </div>
+            <div class="text">Training Time:</div>
             <div class="variable">{{ entry.training }}</div>
           </div>
           <div class="line">
-            <div class="text">Veggies in Meals: </div>
+            <div class="text">Veggies in Meals:</div>
             <div class="variable">{{ entry.veggies }}</div>
           </div>
           <div class="line">
-            <div class="text">Excercise of the day: </div>
+            <div class="text">Excercise of the day:</div>
             <div class="variable">{{ entry.excercise }}</div>
           </div>
-          <div > </div>
+          <div></div>
         </div>
       </div>
     </div>
@@ -40,7 +42,6 @@
 </div>
 
 <!-- </div> -->
-
 
 <!--
 
