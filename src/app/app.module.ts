@@ -19,6 +19,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DailySurvey } from './activities/models/daily-survey';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
       registrationStrategy: 'registerWhenStable:30000',
     }),
     FormsModule,
+    LeafletModule,
   ],
   providers: [DailySurvey],
   bootstrap: [AppComponent],

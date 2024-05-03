@@ -9,6 +9,7 @@ import { DailySurveyComponent } from './activities/components/daily-survey/daily
 import { AccountSettingsComponent } from './account/components/account-settings/account-settings.component';
 import { ArticleComponent } from './articles/article/article.component';
 import { AuthGuard } from './account/services/auth.guard';
+import { MapComponent } from './activities/components/map/map.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: 'article/:articleID',
         component: ArticleComponent,
+      },
+      {
+        path: 'map',
+        component: MapComponent,
       },
     ],
   },
