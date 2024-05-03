@@ -6,7 +6,7 @@ import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
 import { Timestamp, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailyService } from '../../activities/services/daily.service';
-import {map, Observable, take} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class AccountService {
   userId: any;
   private firestore: Firestore = inject(Firestore);
 
-  constructor(private auth: AngularFireAuth, private router: Router, private  dailyService: DailyService) {
+  constructor(private auth: AngularFireAuth, private router: Router, private dailyService: DailyService, private notificationsService: NotificationsService) {
     this.getUserData();
   }
 
@@ -24,7 +24,9 @@ export class AccountService {
     this.userId = result.user?.uid;
     sessionStorage.setItem('userID', this.userId);
     this.getUserData();
-    sessionStorage.setItem('userName', this.currentUser.name)
+    sessionStorage.setItem('userName', this.currentUser.name);
+    this.notificationsService.sendNotification("Succesful login", "Succesfully logged in!");
+    console.log("after not func");
   }
 
   loginWithEmail(email: string, password: string) {

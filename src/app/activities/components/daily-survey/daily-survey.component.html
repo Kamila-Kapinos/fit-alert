@@ -14,7 +14,11 @@
         <label for="sleep" class="form-label">Sleep quality</label>
       </div>
       <div class="col-sm">
-        <input type="text" class="form-control" id="sleep" name="sleep" [(ngModel)]="dailySurvey.sleepQuality">
+        <select class="form-select" aria-label="Sleep quality select" id="sleep" name="sleep" [(ngModel)]="dailySurvey.sleepQuality">
+          <option value="good">good</option>
+          <option value="medium">medium</option>
+          <option value="bad">bad</option>
+        </select>
       </div>
     </div>
 
