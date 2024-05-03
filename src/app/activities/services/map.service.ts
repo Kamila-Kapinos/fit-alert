@@ -9,7 +9,10 @@ export class MapService {
   private firestore: Firestore = inject(Firestore);
   private userId: any;
   
-  constructor() { }
+  constructor() { 
+    this.userId = sessionStorage.getItem('userID')
+    // this.userId = "testID"
+  }
 
   async saveActivity(data: Object) {
     try {
