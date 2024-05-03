@@ -30,7 +30,7 @@ export class MapService {
   async getActivitiesLocations() {
     return (
       await getDocs(
-        query(collection(this.firestore, 'users/' + this.userId + '/map')),
+        query(collection(this.firestore, 'users/' + 'testID' + '/map')),
       )
     ).docs.map((activities) => activities.data());
   }
