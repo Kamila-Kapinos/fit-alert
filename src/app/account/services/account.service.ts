@@ -6,7 +6,7 @@ import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
 import { Timestamp, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailyService } from '../../activities/services/daily.service';
-import {map, Observable} from "rxjs";
+import {map, Observable, take} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -152,9 +152,19 @@ export class AccountService {
   }
 
   async isAuthenticated() {
-    const user = await this.auth.currentUser;
-    console.log({isAuth: user})
-    return user !== null;
+    return this.auth.authState.pipe(
+      take(1),
+      map(user => {
+
+        console.log({user})
+        if (user) {
+          // User is logged in, allow access
+          return true;
+        } else {
+          return false;
+        }
+      })
+    ).toPromise();
   }
 
   logout() {

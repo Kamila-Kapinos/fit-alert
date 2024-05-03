@@ -18,17 +18,16 @@
     <div class="collapse navbar-collapse" id="collapseBasic"  [ngbCollapse]="isNavbarCollapsed">
       <ul class="navbar-nav ms-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="today">Today</a>
+          <a class="nav-link active" aria-current="page" routerLink="/today">Today</a>
         </li>
         <li class="nav-item">
 <!--          <a class="nav-link" href="#">Your diary</a>-->
-          <button
-            type="button"
+          <a
             class="nav-link"
             [routerLink]="['/diary']"
           >
             Your diary
-          </button>
+          </a>
         </li>
         <li class="nav-item">
           <button class="btn" [routerLink]="['/account']">Profile</button>
