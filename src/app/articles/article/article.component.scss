@@ -1,88 +1,87 @@
-.article-container{
-    margin:0;
-    padding:0;
-    display: flex;
-    justify-content: center;
+.article-container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
-@mixin exBord(){
-    //border: solid 2px rgb(random(255),random(255),random(255));
+@mixin exBord() {
+  //border: solid 2px rgb(random(255),random(255),random(255));
 }
-$breakpoint:1000px;
-.article{
-    margin:1em 0 2em 0;
-    padding:1em 1em 0 1em;
-    display: flex;
-    flex-direction: row;
-    width: min(80rem,100%);
-    justify-content: space-between;
+$breakpoint: 1000px;
+.article {
+  margin: 1em 0 2em 0;
+  padding: 1em 1em 0 1em;
+  display: flex;
+  flex-direction: row;
+  width: min(80rem, 100%);
+  justify-content: space-between;
+  @include exBord();
+  flex-wrap: wrap;
+  @media screen and (max-width: $breakpoint) {
+    flex-direction: column;
+  }
+
+  &-title {
+    font-size: x-large;
+    width: 100%;
+    font-weight: bold;
+  }
+  &-subtitle {
+    width: 2em;
+    font-size: larger;
+    width: fit-content;
+    float: left;
+    flex-shrink: 0;
+    overflow-wrap: normal;
+
     @include exBord();
+  }
+  &-date {
+    min-height: 2em;
+    min-width: max-content;
+    float: right;
+    flex-shrink: 0;
+    color: darkgray;
+    @include exBord();
+  }
+  &-img {
+    margin: 0 1em 0 0;
+    @include exBord();
+    min-width: 40%;
+    max-width: 60%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    aspect-ratio: 16 / 9;
+    float: left;
+    @media screen and (max-width: $breakpoint) {
+      width: min(100%, 40em);
+      max-width: 100%;
+      margin: 0 0 1em 0;
+    }
+  }
+  &-body {
+    width: 100%;
+    margin: 1em 0 0 0;
     flex-wrap: wrap;
-    @media screen and (max-width:$breakpoint) {
-        flex-direction: column;
+    font-family: "Times New Roman", Times, serif;
+    text-align: justify;
+    @media screen and (max-width: $breakpoint) {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: flex-start;
     }
-    
-    &-title{
-        font-size: x-large;
-        width: 100%;
-        font-weight: bold;
-    }
-    &-subtitle{
-        width: 2em;
-        font-size: larger;
-        width: fit-content;
-        float:left;
-        flex-shrink: 0;
-        overflow-wrap: normal;
-    
-        @include exBord();
-    }
-    &-date{
-        min-height: 2em;
-        min-width: max-content;
-        float:right;
-        flex-shrink: 0;
-        color: darkgray;
-        @include exBord();
-    }
-    &-img{
-        margin: 0 1em 0 0 ;
-       @include exBord();
-        min-width: 40%;
-        max-width: 60%;
-        flex-grow: 0;
-        flex-shrink: 0;
-        aspect-ratio: 16 / 9 ;
-        float:left;
-        @media screen and (max-width:$breakpoint) {
-            width: min(100%, 40em);
-            max-width: 100%;
-            margin: 0 0 1em 0;
-        }
-    }
-    &-body{
-        width: 100%;
-        margin: 1em 0 0 0;
-        flex-wrap: wrap;
-        font-family: 'Times New Roman', Times, serif;
-        text-align: justify;
-        @media screen and (max-width:$breakpoint) {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
-            align-items: center;
-            justify-content: flex-start;
-        
-        }
-    }
-    
-    &-footer{
-        color: darkgray;
-        margin: 0 0 0 0;        
-        width: 100%;
-        text-align:right;
-    }
-    p {
-        text-wrap:wrap;        
-    }
+  }
+
+  &-footer {
+    color: darkgray;
+    margin: 0 0 0 0;
+    width: 100%;
+    text-align: right;
+  }
+  p {
+    text-wrap: wrap;
+  }
 }

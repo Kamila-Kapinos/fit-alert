@@ -1,11 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
-import { Timestamp, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { DailyService } from '../../activities/services/daily.service';
+import { map, take } from 'rxjs';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,12 @@ export class AccountService {
   userId: any;
   private firestore: Firestore = inject(Firestore);
 
-  constructor(private auth: AngularFireAuth, private router: Router, private  dailyService: DailyService) {
+  constructor(
+    private auth: AngularFireAuth,
+    private router: Router,
+    private dailyService: DailyService,
+    private notificationsService: NotificationsService,
+  ) {
     this.getUserData();
   }
 
@@ -23,7 +30,12 @@ export class AccountService {
     this.userId = result.user?.uid;
     sessionStorage.setItem('userID', this.userId);
     this.getUserData();
-    sessionStorage.setItem('userName', this.currentUser.name)
+    sessionStorage.setItem('userName', this.currentUser.name);
+    this.notificationsService.sendNotification(
+      'Succesful login',
+      'Succesfully logged in!',
+    );
+    console.log('after not func');
   }
 
   loginWithEmail(email: string, password: string) {
@@ -83,23 +95,27 @@ export class AccountService {
   private async createUserCollections() {
     await setDoc(doc(this.firestore, 'users', this.userId), {});
     await setDoc(
-      doc(this.firestore, 'users/' + this.userId + '/diary', this.getCurrentDate()),
+      doc(
+        this.firestore,
+        'users/' + this.userId + '/diary',
+        this.getCurrentDate(),
+      ),
       {
-        "excercise": "",
-        "sleep": "",
-        "time": Timestamp.now(),
-        "training": 0,
-        "veggies": 0,
-        "water": 0
-      }
+        excercise: '',
+        sleep: '',
+        time: Timestamp.now(),
+        training: 0,
+        veggies: 0,
+        water: 0,
+      },
     );
     await setDoc(
       doc(this.firestore, 'users/' + this.userId + '/accountData', 'init'),
-      {}
+      {},
     );
     await setDoc(
       doc(this.firestore, 'users/' + this.userId + '/activities', 'init'),
-      {}
+      {},
     );
   }
 
@@ -107,7 +123,7 @@ export class AccountService {
     try {
       await setDoc(
         doc(this.firestore, 'users/' + this.userId + '/accountData', 'data'),
-        data
+        data,
       ).then(() => {
         console.log('wysłano dokument');
       });
@@ -120,7 +136,7 @@ export class AccountService {
     try {
       this.userId = sessionStorage.getItem('userID');
       let user_data = await getDoc(
-        doc(this.firestore, 'users/' + this.userId + '/accountData', 'data')
+        doc(this.firestore, 'users/' + this.userId + '/accountData', 'data'),
       );
       if (user_data.exists()) {
         this.currentUser.name = user_data.data()['name'];
@@ -150,4 +166,33 @@ export class AccountService {
     return data;
   }
 
+  async isAuthenticated() {
+    return this.auth.authState
+      .pipe(
+        take(1),
+        map((user) => {
+          console.log({ user });
+          if (user) {
+            // User is logged in, allow access
+            return true;
+          } else {
+            return false;
+          }
+        }),
+      )
+      .toPromise();
+  }
+
+  logout() {
+    this.auth
+      .signOut()
+      .then(() => {
+        // Logout successful
+        alert('Logout successful.');
+      })
+      .catch((error) => {
+        // An error occurred
+        alert('An error occurred while logging out: ' + error.message);
+      });
+  }
 }

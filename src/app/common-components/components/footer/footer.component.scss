@@ -1,11 +1,9 @@
-$basic-grey: #D9D9D9;
+$basic-grey: #d9d9d9;
 
 footer {
   background-color: $basic-grey !important;
-  position: relative;
   bottom: 0;
   width: 100%;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding: 2px 10px;
   text-align: center;
 }

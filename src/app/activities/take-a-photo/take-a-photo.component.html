@@ -1,0 +1,59 @@
+<p>take-a-photo works!</p>
+<div class="camera-container">
+  <div class="camera-icon">
+    <button type="button" (click)="showCamera()" *ngIf="!camera">
+      <img src="../../../assets/camera-icon.png" alt="icon of a camera" />
+    </button>
+  </div>
+
+  <div
+    class="video-container"
+    [class.hide]="!camera"
+    [class.show]="camera && !hasError"
+  >
+    <video
+      [class.show]="!isCaptured"
+      [class.hide]="isCaptured"
+      #video
+      id="video"
+      autoplay
+      [width]="Width"
+      [height]="Height"
+    ></video>
+    <canvas
+      [class.show]="isCaptured"
+      [class.hide]="!isCaptured"
+      #canvas
+      id="canvas"
+      [width]="Width"
+      [height]="Height"
+    ></canvas>
+  </div>
+</div>
+<div
+  class="camera-buttons"
+  [class.hide]="!camera"
+  [class.show]="camera && !hasError"
+>
+  <!-- </div> [class.show]="camera"  [class.hide]="!camera"> -->
+  <button type="button" (click)="hideCamera()">Hide camera</button>
+  <button type="button" (click)="takePhoto()">Take photo</button>
+  <button type="button" (click)="retakePhoto()">Retake photo</button>
+  <button type="button" (click)="sendPhoto()">!!! Send photo !!!</button>
+</div>
+<!-- 
+        <div id='results'>
+            <div>
+                <video autoplay></video>
+                <button (click)='getUserMedia()'>Get User Media</button>
+            </div>
+            <div>
+                <canvas id='grabFrameCanvas'></canvas>
+                <button id='grabFrameButton' disabled>Grab Frame</button>
+            </div>
+            <div>
+                <canvas id='takePhotoCanvas'></canvas>
+                <button (click)='takeAPhoto()'>Take Photo</button>
+            </div>
+        </div>
+    -->
