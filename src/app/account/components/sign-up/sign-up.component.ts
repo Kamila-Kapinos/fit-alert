@@ -9,12 +9,19 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ErrorsComponent } from '../../../forms/errors/errors.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    RouterLink,
+    ErrorsComponent,
+  ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
@@ -24,6 +31,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private formBuilder: FormBuilder,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +40,16 @@ export class SignUpComponent implements OnInit {
         name: ['', Validators.required],
         surname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        phone: ['', Validators.required],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^\+?\d{0,3}\s?[\d\s-]{9,}$/),
+          ],
+        ],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
+        termsAndConditions: [false, Validators.requiredTrue],
       },
       { validator: this.passwordMatchValidator },
     );
@@ -57,7 +72,6 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     const formData = this.signupForm.value;
     const password = formData.password;
-    const confirmPassword = formData.confirmPassword;
 
     if (this.signupForm.valid) {
       const newUser: User = {
@@ -69,14 +83,36 @@ export class SignUpComponent implements OnInit {
 
       this.accountService
         .signUpWithUser(newUser, password)
-        .then(() => {
-          console.log('Rejestracja udana');
-        })
         .catch((error) => {
-          console.error('Błąd rejestracji:', error);
+          console.log(error.message);
+          if (error.message.indexOf('auth/email-already-in-use') !== -1) {
+            alert('User with email: ' + formData.email + ' already exists');
+          } else {
+            alert('System error! Please contact with app administrator');
+          }
+          console.error(error);
+          return null;
+        })
+        .then((ret) => {
+          if (ret) {
+            alert('Account has been created. Please sign in.');
+            this.router.navigate(['/login']);
+          }
         });
     } else {
       this.signupForm.markAllAsTouched();
+    }
+  }
+
+  updateTermsAndConditions(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target) {
+      const isChecked = target.checked;
+      const termsAndConditionsControl =
+        this.signupForm.get('termsAndConditions');
+      if (termsAndConditionsControl) {
+        termsAndConditionsControl.setValue(isChecked);
+      }
     }
   }
 }
