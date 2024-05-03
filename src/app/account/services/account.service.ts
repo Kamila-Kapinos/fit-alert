@@ -6,7 +6,7 @@ import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { DailyService } from '../../activities/services/daily.service';
-import { map, take } from 'rxjs';
+import { map, Observable, Observer, take } from 'rxjs';
 import { NotificationsService } from '../../services/notifications.service';
 
 @Injectable({
@@ -194,5 +194,22 @@ export class AccountService {
         // An error occurred
         alert('An error occurred while logging out: ' + error.message);
       });
+  }
+
+  checkIfEmailExists(email: string): Observable<boolean> {
+    return new Observable<boolean>((observer: Observer<boolean>) => {
+      this.auth
+        .fetchSignInMethodsForEmail(email)
+        .then((signInMethods: string[]) => {
+          const exists: boolean = signInMethods.length > 0;
+          console.log(signInMethods);
+          observer.next(exists);
+          observer.complete();
+        })
+        .catch((error: any) => {
+          console.error('Error fetching sign-in methods for email:', error);
+          observer.error(error);
+        });
+    });
   }
 }
