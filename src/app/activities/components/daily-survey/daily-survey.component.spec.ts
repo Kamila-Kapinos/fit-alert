@@ -8,10 +8,9 @@ describe('DailySurveyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DailySurveyComponent]
-    })
-    .compileComponents();
-    
+      imports: [DailySurveyComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DailySurveyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

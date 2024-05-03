@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 
 @Component({
@@ -7,70 +7,63 @@ import { PhotoService } from '../services/photo.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './take-a-photo.component.html',
-  styleUrl: './take-a-photo.component.scss'
+  styleUrl: './take-a-photo.component.scss',
 })
-export class TakeAPhotoComponent {//implements AfterViewInit{
-  
-  @ViewChild("video") public video: ElementRef = new ElementRef("video"); 
-  @ViewChild("canvas") public canvas: ElementRef = new ElementRef("canvas"); 
+export class TakeAPhotoComponent {
+  //implements AfterViewInit{
 
-  Width:number = 680;
-  Height:number = 480;
+  @ViewChild('video') public video: ElementRef = new ElementRef('video');
+  @ViewChild('canvas') public canvas: ElementRef = new ElementRef('canvas');
 
-  windowWidth:number = window.screen.width;
-  windowHeight:number = window.screen.height;
+  Width: number = 680;
+  Height: number = 480;
 
-  hasError:boolean=false;
-  initCamera:boolean=false;
-  camera:boolean=false;
-  isCaptured:boolean = false;
+  windowWidth: number = window.screen.width;
+  windowHeight: number = window.screen.height;
+
+  hasError: boolean = false;
+  initCamera: boolean = false;
+  camera: boolean = false;
+  isCaptured: boolean = false;
   photos: string[] = [];
 
-
-  constructor(public photoService:PhotoService){}
-  onInit(){}
-  takeAPhoto(){
-
-  }
+  constructor(public photoService: PhotoService) {}
+  onInit() {}
+  takeAPhoto() {}
 
   // async ngAfterViewInit() {
   //   await this.setupDevice();
   // }
 
   async setupDevice() {
-    
-    if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia ) {
-
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
 
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-
-        if ( stream ) {
+        if (stream) {
           this.video.nativeElement.srcObject = stream;
           this.video.nativeElement.play();
           this.hasError = false;
-          this.initCamera=true;
-        }
-        else {
+          this.initCamera = true;
+        } else {
           this.hasError = true;
         }
-        
       } catch (error) {
         this.hasError = true;
-        console.log(error)
+        console.log(error);
       }
-
     }
-
   }
-  async showCamera(){
-
+  async showCamera() {
     this.camera = true;
-    if (!this.initCamera){await this.setupDevice();}
+    if (!this.initCamera) {
+      await this.setupDevice();
+    }
     this.video.nativeElement.play();
-
   }
-  hideCamera(){
+  hideCamera() {
     this.camera = false;
     this.isCaptured = false;
     //this.video.nativeElement.pause();
@@ -78,19 +71,21 @@ export class TakeAPhotoComponent {//implements AfterViewInit{
 
   takePhoto() {
     this.drawImageToCanvas(this.video.nativeElement);
-    this.photos.push(this.canvas.nativeElement.toDataURL("image/png"));
-    console.log(this.canvas.nativeElement.toDataURL("image/png"))
+    this.photos.push(this.canvas.nativeElement.toDataURL('image/png'));
+    console.log(this.canvas.nativeElement.toDataURL('image/png'));
     this.isCaptured = true;
   }
-  async retakePhoto(){
+  async retakePhoto() {
     this.isCaptured = false;
-    if (!this.initCamera){await this.setupDevice();}
-
+    if (!this.initCamera) {
+      await this.setupDevice();
+    }
   }
-  sendPhoto(){
-    if (this.photos.length <= 0 ){console.log("no photos to send")}
-    else {
-      this.photoService.sendPhoto(this.photos[this.photos.length - 1])
+  sendPhoto() {
+    if (this.photos.length <= 0) {
+      console.log('no photos to send');
+    } else {
+      this.photoService.sendPhoto(this.photos[this.photos.length - 1]);
     }
   }
 
@@ -100,7 +95,9 @@ export class TakeAPhotoComponent {//implements AfterViewInit{
     image.src = this.photos[idx];
     this.drawImageToCanvas(image);
   }
-  drawImageToCanvas(image:unknown) {
-    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, this.Width, this.Height);
+  drawImageToCanvas(image: unknown) {
+    this.canvas.nativeElement
+      .getContext('2d')
+      .drawImage(image, 0, 0, this.Width, this.Height);
   }
 }

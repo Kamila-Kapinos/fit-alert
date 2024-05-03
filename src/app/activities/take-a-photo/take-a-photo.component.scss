@@ -1,26 +1,26 @@
-video{
-    border: solid 2px red;
+video {
+  border: solid 2px red;
 }
-canvas{
-    border: solid 2px blue;
+canvas {
+  border: solid 2px blue;
 }
-.show{
-    display: block;
-    visibility: visible;
+.show {
+  display: block;
+  visibility: visible;
 }
 
 .hide {
-    display: none;
-    visibility: collapse;
+  display: none;
+  visibility: collapse;
 }
 
-.camera-container{
-    display: flex;
-    //flex-direction: column;
-    align-content: center;
-    justify-content: center;
+.camera-container {
+  display: flex;
+  //flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
-.camera-buttons{
-    display: flex;
-    justify-content: center;
+.camera-buttons {
+  display: flex;
+  justify-content: center;
 }

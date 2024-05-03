@@ -1,31 +1,30 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationsService {
+  constructor() {}
 
-  constructor() { }
-
-  public async sendNotification(title: string, text: string){
-    console.log("In notification func")
+  public async sendNotification(title: string, text: string) {
+    console.log('In notification func');
 
     // const webpush = require('web-push');
     // const vapidKeys = webpush.generateVAPIDKeys();
     // console.log(vapidKeys);
-    if(Notification.permission == 'default'){
+    if (Notification.permission == 'default') {
       Notification.requestPermission().then((result) => {
         console.log(result);
       });
     }
 
-    if(!window){
-      console.log("Not supported")
+    if (!window) {
+      console.log('Not supported');
     }
-  
-    new Notification(title, {body: text})
+
+    new Notification(title, { body: text });
     window.navigator.vibrate([200, 100, 200]);
 
-    console.log("Sent notification")
+    console.log('Sent notification');
   }
 }

@@ -1,6 +1,6 @@
-$custom-el-color-primary: #C7DBA6;
-$custom-el-color-secondary: #BBD8E1;
-$card-color: #F0F0F0;
+$custom-el-color-primary: #c7dba6;
+$custom-el-color-secondary: #bbd8e1;
+$card-color: #f0f0f0;
 
 .mood-el {
   background-color: $custom-el-color-secondary;
@@ -20,7 +20,6 @@ $card-color: #F0F0F0;
   font-size: 1rem;
 }
 
-/* Media queries */
 @media (max-width: 767px) {
   .btn-sm-square {
     width: 65px; /* Ustawiamy szerokość przycisków na 100px */
@@ -30,11 +29,10 @@ $card-color: #F0F0F0;
   }
 }
 
-
 .daily-ch {
   background-color: $custom-el-color-primary;
   border-radius: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +53,7 @@ $card-color: #F0F0F0;
   overflow: hidden;
   width: 50%;
   height: 72%;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 .container-challange:hover .overlay {
@@ -72,7 +70,7 @@ $card-color: #F0F0F0;
 }
 
 .card-challange {
-  background: #FFFEFE;
+  background: #fffefe;
   border-radius: 10px;
   text-align: center;
   position: relative;
