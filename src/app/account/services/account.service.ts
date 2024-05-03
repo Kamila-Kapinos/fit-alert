@@ -1,12 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
-import { Timestamp, doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { DailyService } from '../../activities/services/daily.service';
-import { map, Observable } from 'rxjs';
+import { map, take } from 'rxjs';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Injectable({
   providedIn: 'root',
