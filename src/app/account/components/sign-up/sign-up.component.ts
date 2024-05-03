@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ErrorsComponent } from '../../../forms/errors/errors.component';
 
 @Component({
@@ -31,6 +31,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private formBuilder: FormBuilder,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -73,39 +74,31 @@ export class SignUpComponent implements OnInit {
     const password = formData.password;
 
     if (this.signupForm.valid) {
-      const email = formData.email;
+      const newUser: User = {
+        name: formData.name,
+        surname: formData.surname,
+        email: formData.email,
+        phone: formData.phone,
+      };
 
-      // Sprawdź, czy dany adres e-mail już istnieje
-      this.accountService.checkIfEmailExists(email).subscribe(
-        (exists: boolean) => {
-          if (exists) {
-            // Adres e-mail już istnieje, wyświetl komunikat o błędzie
-            console.log('E-mail już istnieje');
-            // Tutaj możesz wyświetlić komunikat użytkownikowi
+      this.accountService
+        .signUpWithUser(newUser, password)
+        .catch((error) => {
+          console.log(error.message);
+          if (error.message.indexOf('auth/email-already-in-use') !== -1) {
+            alert('User with email: ' + formData.email + ' already exists');
           } else {
-            // Adres e-mail nie istnieje, kontynuuj proces rejestracji
-            const newUser: User = {
-              name: formData.name,
-              surname: formData.surname,
-              email: formData.email,
-              phone: formData.phone,
-            };
-
-            this.accountService
-              .signUpWithUser(newUser, password)
-              .then(() => {
-                console.log('Rejestracja udana');
-              })
-              .catch((error) => {
-                console.error('Błąd rejestracji:', error);
-              });
+            alert('System error! Please contact with app administrator');
           }
-        },
-        (error) => {
-          console.error('Błąd sprawdzania istnienia adresu e-mail:', error);
-          // Obsłuż błąd
-        },
-      );
+          console.error(error);
+          return null;
+        })
+        .then((ret) => {
+          if (ret) {
+            alert('Account has been created. Please sign in.');
+            this.router.navigate(['/login']);
+          }
+        });
     } else {
       this.signupForm.markAllAsTouched();
     }

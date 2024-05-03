@@ -13,29 +13,25 @@ import { Router } from '@angular/router';
   styleUrl: './account-settings.component.scss',
 })
 export class AccountSettingsComponent implements OnInit {
-  public user: User;
+  public user!: User;
 
   constructor(
-    public service: AccountService,
+    public accountService: AccountService,
     private router: Router,
-  ) {
-    this.user = service.currentUser;
-  }
+  ) {}
 
   ngOnInit() {
-    try {
-      this.service.getUserData().then((data) => {
-        this.user = data;
-        console.log('user data', data);
-      });
-    } catch (error) {
-      console.error('Please log in to continue');
-    }
+    this.user = this.accountService.currentUser ?? {
+      name: '',
+      surname: '',
+      email: '',
+      phone: '',
+    };
   }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.service.saveUserData(this.user);
+      this.accountService.saveUserData(this.user);
       console.log('Saved data');
     } else {
       console.log('Not valid form');
@@ -51,7 +47,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   logout() {
-    this.service.logout();
+    this.accountService.logout();
     this.router.navigate(['/login']);
   }
 }

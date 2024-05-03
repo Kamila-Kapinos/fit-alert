@@ -87,12 +87,14 @@ $card-color: #f0f0f0;
   background-color: $custom-el-color-secondary;
   border-radius: 10px;
   margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
 }
 
 .card-art h5 {
+  text-align: center;
+  color: white;
+  overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .article-button {
@@ -101,10 +103,4 @@ $card-color: #f0f0f0;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-@media (min-width: 1400px) {
-  .card-art img {
-    max-height: 300px;
-  }
 }
