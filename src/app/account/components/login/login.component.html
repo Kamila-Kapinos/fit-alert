@@ -12,7 +12,7 @@
           class="form-control"
           placeholder="Email"
         />
-        <!--        <app-errors [control]="loginForm.get('email')"></app-errors>-->
+        <app-errors [control]="loginForm.get('email')"></app-errors>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
@@ -23,6 +23,7 @@
           class="form-control"
           placeholder="Password"
         />
+        <app-errors [control]="loginForm.get('password')"></app-errors>
       </div>
       <div class="d-flex justify-content-end">
         <button
