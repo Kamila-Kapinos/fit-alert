@@ -10,22 +10,21 @@ import * as Leaflet from 'leaflet';
   styleUrl: './map.component.scss',
 })
 export class MapComponent {
-  // map!: Leaflet.Map;
-  // markers: Leaflet.Marker[] = [];
-  // options = {
-  //   layers: [
-  //     Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //       attribution:
-  //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  //     }),
-  //   ],
-  //   zoom: 16,
-  //   center: { lat: 28.626137, lng: 79.821603 },
-  // };
-
   constructor() {}
 
   ngOnInit(): void {
+    const customIcon = L.icon({
+      iconUrl: 'assets/media/marker-icon-2x.png',
+      shadowUrl: 'assets/media/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28],
+      shadowSize: [41, 41],
+    });
+
+    L.Marker.prototype.setIcon(customIcon);
+
     const mapOptions = {
       center: [17.385044, 78.486671] as L.LatLngTuple,
       zoom: 10,
@@ -34,6 +33,10 @@ export class MapComponent {
 
     const layer = new L.TileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      },
     );
     map.addLayer(layer);
 
@@ -47,7 +50,7 @@ export class MapComponent {
         .bindPopup('You are within ' + radius + ' meters from this point')
         .openPopup();
 
-      L.circle(e.latlng, radius).addTo(map);
+      // L.circle(e.latlng, radius).addTo(map);
     }
 
     map.on('locationfound', onLocationFound);
@@ -57,5 +60,21 @@ export class MapComponent {
     }
 
     map.on('locationerror', onLocationError);
+
+    let popup = L.popup();
+
+    function onMapClick(e: any) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent('Add activity at ' + e.latlng.toString())
+        .openOn(map);
+
+      saveActivityLocation();
+    }
+
+    map.on('click', onMapClick);
   }
+}
+function saveActivityLocation() {
+  console.log('Saved location');
 }
