@@ -4,12 +4,14 @@ import { DailySurvey } from '../../models/daily-survey';
 import { FormsModule } from "@angular/forms";
 import { Firestore, Timestamp } from '@angular/fire/firestore';
 import { DailyService } from '../../services/daily.service';
+import { TakeAPhotoComponent } from '../../take-a-photo/take-a-photo.component';
 
 @Component({
   selector: 'app-daily-survey',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    TakeAPhotoComponent
   ],
   templateUrl: './daily-survey.component.html',
   styleUrl: './daily-survey.component.scss'
