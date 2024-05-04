@@ -2,28 +2,38 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, getDocs, query } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailySurvey } from '../models/daily-survey';
+import { AccountService } from '../../account/services/account.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DailyService {
   private firestore: Firestore = inject(Firestore);
-  private userId: any;
-  constructor(private dailySurvey: DailySurvey) {
-    this.userId = sessionStorage.getItem('userID');
-  }
+  constructor(
+    private dailySurvey: DailySurvey,
+    private accountService: AccountService,
+  ) {}
 
   async getDiary() {
     return (
       await getDocs(
-        query(collection(this.firestore, 'users/' + this.userId + '/diary')),
+        query(
+          collection(
+            this.firestore,
+            'users/' + this.accountService.userId + '/diary',
+          ),
+        ),
       )
     ).docs.map((diary) => diary.data());
   }
 
   async getDailyLog(docName: string) {
     let log = await getDoc(
-      doc(this.firestore, 'users/' + this.userId + '/diary', docName),
+      doc(
+        this.firestore,
+        'users/' + this.accountService.userId + '/diary',
+        docName,
+      ),
     );
     if (log.exists()) {
       this.dailySurvey.creationTime = log.data()['time'];
@@ -45,7 +55,7 @@ export class DailyService {
       const currentDate = this.getCurrentDate();
       const docRef = doc(
         this.firestore,
-        `users/${this.userId}/diary/${currentDate}`,
+        `users/${this.accountService.userId}/diary/${currentDate}`,
       );
 
       const docSnap = await getDoc(docRef);
@@ -67,7 +77,7 @@ export class DailyService {
       const currentDate = this.getCurrentDate();
       const docRef = doc(
         this.firestore,
-        `users/${this.userId}/diary/${currentDate}`,
+        `users/${this.accountService.userId}/diary/${currentDate}`,
       );
       const docSnap = await getDoc(docRef);
       let emotions = [];
