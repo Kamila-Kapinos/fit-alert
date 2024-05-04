@@ -3,6 +3,8 @@ import { Firestore, collection, getDocs, query } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailySurvey } from '../models/daily-survey';
 import { AccountService } from '../../account/services/account.service';
+import { take } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -11,29 +13,22 @@ export class DailyService {
   private firestore: Firestore = inject(Firestore);
   constructor(
     private dailySurvey: DailySurvey,
-    private accountService: AccountService,
+    private auth: AngularFireAuth,
   ) {}
 
   async getDiary() {
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
     return (
       await getDocs(
-        query(
-          collection(
-            this.firestore,
-            'users/' + this.accountService.userId + '/diary',
-          ),
-        ),
+        query(collection(this.firestore, 'users/' + fbUser?.uid + '/diary')),
       )
     ).docs.map((diary) => diary.data());
   }
 
   async getDailyLog(docName: string) {
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
     let log = await getDoc(
-      doc(
-        this.firestore,
-        'users/' + this.accountService.userId + '/diary',
-        docName,
-      ),
+      doc(this.firestore, 'users/' + fbUser?.uid + '/diary', docName),
     );
     if (log.exists()) {
       this.dailySurvey.creationTime = log.data()['time'];
@@ -51,11 +46,12 @@ export class DailyService {
   }
 
   async sendDiaryLog(data: Object) {
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
     try {
       const currentDate = this.getCurrentDate();
       const docRef = doc(
         this.firestore,
-        `users/${this.accountService.userId}/diary/${currentDate}`,
+        `users/${fbUser?.uid}/diary/${currentDate}`,
       );
 
       const docSnap = await getDoc(docRef);
@@ -72,12 +68,13 @@ export class DailyService {
   }
 
   async addEmotionToDiary(emotion: string) {
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
     try {
       const currentDateTime = new Date();
       const currentDate = this.getCurrentDate();
       const docRef = doc(
         this.firestore,
-        `users/${this.accountService.userId}/diary/${currentDate}`,
+        `users/${fbUser?.uid}/diary/${currentDate}`,
       );
       const docSnap = await getDoc(docRef);
       let emotions = [];
