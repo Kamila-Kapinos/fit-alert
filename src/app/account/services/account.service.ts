@@ -45,13 +45,15 @@ export class AccountService {
       });
   }
 
-  loginWithGoogle() {
+  loginWithGoogle(user: User) {
     return this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
         console.log('Logowanie przez Google udane');
         this.router.navigate(['/']);
         this.saveUserID(result);
+        this.createUserCollections();
+        this.saveUserData(user);
       })
       .catch((error) => {
         return Promise.reject(error.message);
@@ -110,11 +112,18 @@ export class AccountService {
   }
 
   async saveUserData(data: Object) {
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
     try {
+      if (!fbUser || !fbUser?.uid) {
+        console.error('User not logged in or user ID is undefined');
+        return;
+      }
+
       await setDoc(
-        doc(this.firestore, 'users/' + this.userId + '/accountData', 'data'),
+        doc(this.firestore, 'users/' + fbUser?.uid + '/accountData', 'data'),
         data,
       ).then(() => {
+        console.log('halo' + this.userId);
         console.log('wysłano dokument');
       });
     } catch (error) {

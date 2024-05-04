@@ -31,7 +31,6 @@
   <div class="container">
     <div class="section">Account settings</div>
   </div>
-
   <form class="daily-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="row">
       <div class="col-sm-6">
@@ -44,10 +43,14 @@
           id="name"
           name="name"
           [(ngModel)]="user.name"
+          required
+          #name="ngModel"
         />
       </div>
+      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+        Please fill this field
+      </div>
     </div>
-
     <div class="row">
       <div class="col-sm-6">
         <label for="surname" class="form-label">Last name</label>
@@ -58,8 +61,16 @@
           class="form-control"
           id="surname"
           name="surname"
+          #surname="ngModel"
           [(ngModel)]="user.surname"
+          required
         />
+      </div>
+      <div
+        *ngIf="surname.touched && surname.invalid"
+        class="alert alert-danger"
+      >
+        Please fill this field
       </div>
     </div>
 
@@ -90,13 +101,22 @@
           id="phone"
           name="phone"
           [(ngModel)]="user.phone"
+          required
+          pattern="^\+?\d{0,3}\s?[\d\s-]{9,}$"
+          title="Please enter a valid phone number"
+          #phone="ngModel"
         />
+      </div>
+      <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">
+        Please enter a valid phone number
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-12">
-        <button type="submit" class="submit btn">Save changes</button>
+        <button type="submit" class="submit btn" [disabled]="form.invalid">
+          Save changes
+        </button>
       </div>
     </div>
   </form>
