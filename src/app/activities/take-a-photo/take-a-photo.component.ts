@@ -15,7 +15,7 @@ export class TakeAPhotoComponent {
   @ViewChild('video') public video: ElementRef = new ElementRef('video');
   @ViewChild('canvas') public canvas: ElementRef = new ElementRef('canvas');
 
-  Width: number = 680;
+  Width: number = 480;
   Height: number = 480;
 
   windowWidth: number = window.screen.width;
@@ -25,8 +25,8 @@ export class TakeAPhotoComponent {
   initCamera: boolean = false;
   camera: boolean = false;
   isCaptured: boolean = false;
-  photos: string[] = [];
-
+  photos: string[]= [];
+  onlinePhotos:string[]=[];
   constructor(public photoService: PhotoService) {}
   onInit() {}
   takeAPhoto() {}
@@ -100,4 +100,13 @@ export class TakeAPhotoComponent {
       .getContext('2d')
       .drawImage(image, 0, 0, this.Width, this.Height);
   }
+  async getAllPhotos(){
+    //this.photoService.getAllPhotos().then((photos)=>this.photos = photos);
+    const pht = await this.photoService.getAllPhotos();
+    if (Array.isArray(pht)) {
+      this.onlinePhotos = pht;
+    }
+    console.log("recived: ", this.onlinePhotos);
+  }
+
 }

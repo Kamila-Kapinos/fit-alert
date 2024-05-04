@@ -16,6 +16,7 @@ import { environment } from '../environments/environments';
 import { FormsModule } from '@angular/forms';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {getStorage, provideStorage} from '@angular/fire/storage'
 import { DailySurvey } from './activities/models/daily-survey';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -32,6 +33,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    provideStorage(()=>getStorage()),
     CommonModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),

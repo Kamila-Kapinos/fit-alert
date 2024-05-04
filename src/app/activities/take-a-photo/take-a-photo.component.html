@@ -6,35 +6,14 @@
     </button>
   </div>
 
-  <div
-    class="video-container"
-    [class.hide]="!camera"
-    [class.show]="camera && !hasError"
-  >
-    <video
-      [class.show]="!isCaptured"
-      [class.hide]="isCaptured"
-      #video
-      id="video"
-      autoplay
-      [width]="Width"
-      [height]="Height"
-    ></video>
-    <canvas
-      [class.show]="isCaptured"
-      [class.hide]="!isCaptured"
-      #canvas
-      id="canvas"
-      [width]="Width"
-      [height]="Height"
-    ></canvas>
+  <div class="video-container" [class.hide]="!camera" [class.show]="camera && !hasError">
+    <video [class.show]="!isCaptured" [class.hide]="isCaptured" #video id="video" autoplay [width]="Width"
+      [height]="Height"></video>
+    <canvas [class.show]="isCaptured" [class.hide]="!isCaptured" #canvas id="canvas" [width]="Width"
+      [height]="Height"></canvas>
   </div>
 </div>
-<div
-  class="camera-buttons"
-  [class.hide]="!camera"
-  [class.show]="camera && !hasError"
->
+<div class="camera-buttons" [class.hide]="!camera" [class.show]="camera && !hasError">
   <!-- </div> [class.show]="camera"  [class.hide]="!camera"> -->
   <button type="button" (click)="hideCamera()">Hide camera</button>
   <button type="button" (click)="takePhoto()">Take photo</button>
@@ -57,3 +36,7 @@
             </div>
         </div>
     -->
+<button type="button" (click)="getAllPhotos()">get all online photos</button>
+<div class="online-photos-container" *ngFor="let photo of onlinePhotos">
+  <img [src]="photo" alt="user photo">
+</div>
