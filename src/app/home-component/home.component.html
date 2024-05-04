@@ -1,5 +1,5 @@
 <div class="py-4 px-4">
-  <h1>Hi {{ user }}!</h1>
+  <h1>Hi {{ userName }}!</h1>
   <div class="mood-el py-4 px-4">
     <h2>How do you feel?</h2>
     <div class="container text-center mt-3">
@@ -48,18 +48,16 @@
           *ngFor="let article of trendingArticles"
         >
           <div class="card-art py-4 px-4">
-            <button
-              type="button"
-              class="article-button"
-              [routerLink]="['/article', article.articleID]"
-            >
-              <img
-                class="img-fluid rounded"
-                src="{{ article['article-img-url'] }}"
-                alt="{{ article.title }}"
-              />
+            <a [routerLink]="['/article', article.articleID]">
+              <div class="thumb">
+                <img
+                  class="img-fluid rounded"
+                  src="{{ article['article-img-url'] }}"
+                  alt="{{ article.title }}"
+                />
+              </div>
               <h5 class="mt-2">{{ article.title }}</h5>
-            </button>
+            </a>
           </div>
         </div>
       </div>

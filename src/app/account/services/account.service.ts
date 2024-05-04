@@ -5,32 +5,26 @@ import firebase from 'firebase/compat/app';
 import { User } from '../models/user';
 import { Firestore } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
-import { DailyService } from '../../activities/services/daily.service';
-import { map, take } from 'rxjs';
+import { Observable, Observer, take } from 'rxjs';
 import { NotificationsService } from '../../services/notifications.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  currentUser: User = { name: '', surname: '', email: '', phone: '' };
+  currentUser: User | null = null;
   userId: any;
   private firestore: Firestore = inject(Firestore);
 
   constructor(
     private auth: AngularFireAuth,
     private router: Router,
-    private dailyService: DailyService,
     private notificationsService: NotificationsService,
-  ) {
-    this.getUserData();
-  }
+  ) {}
 
   private saveUserID(result: firebase.auth.UserCredential) {
     this.userId = result.user?.uid;
     sessionStorage.setItem('userID', this.userId);
-    this.getUserData();
-    sessionStorage.setItem('userName', this.currentUser.name);
     this.notificationsService.sendNotification(
       'Succesful login',
       'Succesfully logged in!',
@@ -78,18 +72,13 @@ export class AccountService {
   }
 
   signUpWithUser(user: User, password: string) {
-    this.currentUser = user;
     return this.auth
       .createUserWithEmailAndPassword(user.email, password)
       .then((result) => {
-        this.router.navigate(['/login']);
-
         this.userId = result.user?.uid;
         this.createUserCollections();
-        this.saveUserData(this.currentUser);
-      })
-      .catch((error) => {
-        return Promise.reject(error.message);
+        this.saveUserData(user);
+        return user;
       });
   }
   private async createUserCollections() {
@@ -132,29 +121,6 @@ export class AccountService {
     }
   }
 
-  async getUserData() {
-    try {
-      this.userId = sessionStorage.getItem('userID');
-      let user_data = await getDoc(
-        doc(this.firestore, 'users/' + this.userId + '/accountData', 'data'),
-      );
-      if (user_data.exists()) {
-        this.currentUser.name = user_data.data()['name'];
-        this.currentUser.surname = user_data.data()['surname'];
-        this.currentUser.email = user_data.data()['email'];
-        this.currentUser.phone = user_data.data()['phone'];
-
-        return this.currentUser;
-      } else {
-        console.log('No current user!');
-        return this.currentUser;
-      }
-    } catch (error) {
-      console.error('Please log in to continue', error);
-      return this.currentUser;
-    }
-  }
-
   public getCurrentDate() {
     // gets date looking like that: 26.04.2024
     const dzisiaj = new Date();
@@ -167,32 +133,51 @@ export class AccountService {
   }
 
   async isAuthenticated() {
-    return this.auth.authState
-      .pipe(
-        take(1),
-        map((user) => {
-          console.log({ user });
-          if (user) {
-            // User is logged in, allow access
-            return true;
-          } else {
-            return false;
-          }
-        }),
-      )
-      .toPromise();
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
+    if (fbUser && !this.currentUser) {
+      let user_data = (
+        await getDoc(
+          doc(this.firestore, 'users/' + fbUser?.uid + '/accountData', 'data'),
+        )
+      )?.data();
+      if (user_data) {
+        this.currentUser = {
+          name: user_data['name'],
+          surname: user_data['surname'],
+          email: fbUser.email ?? '',
+          phone: user_data['phone'],
+        };
+      }
+    }
+    return !!fbUser;
   }
 
   logout() {
     this.auth
       .signOut()
       .then(() => {
-        // Logout successful
-        alert('Logout successful.');
+        sessionStorage.removeItem('userID');
+        this.currentUser = null;
       })
       .catch((error) => {
-        // An error occurred
         alert('An error occurred while logging out: ' + error.message);
       });
+  }
+
+  checkIfEmailExists(email: string): Observable<boolean> {
+    return new Observable<boolean>((observer: Observer<boolean>) => {
+      this.auth
+        .fetchSignInMethodsForEmail(email)
+        .then((signInMethods: string[]) => {
+          const exists: boolean = signInMethods.length > 0;
+          console.log(signInMethods);
+          observer.next(exists);
+          observer.complete();
+        })
+        .catch((error: any) => {
+          console.error('Error fetching sign-in methods for email:', error);
+          observer.error(error);
+        });
+    });
   }
 }
