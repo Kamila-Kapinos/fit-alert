@@ -42,18 +42,22 @@ export class DailyService {
 
   async sendDiaryLog(data: Object) {
     try {
-      await setDoc(
-        doc(
-          this.firestore,
-          'users/' + this.userId + '/diary',
-          this.getCurrentDate(),
-        ),
-        data,
-      ).then(() => {
-        console.log('wysłano dokument');
-      });
+      const currentDate = this.getCurrentDate();
+      const docRef = doc(
+        this.firestore,
+        `users/${this.userId}/diary/${currentDate}`,
+      );
+
+      const docSnap = await getDoc(docRef);
+      const currentData = docSnap.exists() ? docSnap.data() : {};
+
+      const newData = { ...currentData, ...data };
+
+      await setDoc(docRef, newData);
+
+      console.log('Dokument wysłany pomyślnie.');
     } catch (error) {
-      console.error('Wystąpił błąd:', error);
+      console.error('Wystąpił błąd podczas wysyłania dokumentu:', error);
     }
   }
 
