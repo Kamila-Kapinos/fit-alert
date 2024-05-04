@@ -37,7 +37,9 @@
   <div class="daily-ch mt-4 py-4 px-4">
     <h2 class="text-center">Daily challange</h2>
     <div class="container-fluid container-challange text-center py-4 px-4">
-      <div class="card-challange text-dark py-4 px-4">{{ yourChallenge }}</div>
+      <div class="card-challange text-dark py-4 px-4">
+        {{ randomChallenge.challenge }}
+      </div>
       <div class="overlay">
         <div class="text text-dark">?</div>
       </div>
@@ -48,7 +50,7 @@
       </button>
     </div>
     <div class="streak">
-      <p class="text-right">Your streak: {{ counter }}</p>
+      <p class="text-right">Your streak: {{ streakCounter }}</p>
     </div>
   </div>
   <div class="mt-4 py-4 px-4">
