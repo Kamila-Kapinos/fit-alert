@@ -5,18 +5,30 @@
     <div class="container text-center mt-3">
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-success btn-sm-square">
-            Success
+          <button
+            type="button"
+            class="btn btn-success btn-sm-square"
+            (click)="handleEmotionClick('Thrilled')"
+          >
+            Thrilled
           </button>
         </div>
         <div class="col">
-          <button type="button" class="btn btn-warning btn-sm-square">
-            Warning
+          <button
+            type="button"
+            class="btn btn-warning btn-sm-square"
+            (click)="handleEmotionClick('Sleepy')"
+          >
+            Sleepy
           </button>
         </div>
         <div class="col">
-          <button type="button" class="btn btn-danger btn-sm-square">
-            Danger
+          <button
+            type="button"
+            class="btn btn-danger btn-sm-square"
+            (click)="handleEmotionClick('Unhappy')"
+          >
+            Unhappy
           </button>
         </div>
       </div>
@@ -25,7 +37,9 @@
   <div class="daily-ch mt-4 py-4 px-4">
     <h2 class="text-center">Daily challange</h2>
     <div class="container-fluid container-challange text-center py-4 px-4">
-      <div class="card-challange text-dark py-4 px-4">{{ yourChallenge }}</div>
+      <div class="card-challange text-dark py-4 px-4">
+        {{ randomChallenge.challenge }}
+      </div>
       <div class="overlay">
         <div class="text text-dark">?</div>
       </div>
@@ -36,7 +50,7 @@
       </button>
     </div>
     <div class="streak">
-      <p class="text-right">Your streak: {{ counter }}</p>
+      <p class="text-right">Your streak: {{ streakCounter }}</p>
     </div>
   </div>
   <div class="mt-4 py-4 px-4">

@@ -6,35 +6,60 @@
           {{this.month.key}} {{this.year.key}}
       </div> -->
   <div *ngIf="userDiary" class="diary-cards">
-    <div *ngFor="let entry of userDiary.slice().reverse()">
+    <div *ngFor="let log of userDiary">
       <div class="diary-card">
         <div class="diary-card-title">
-          {{ entry.time.toDate() | date: "mediumDate" }}
+          {{ log.time.toDate() | date: "mediumDate" }}
         </div>
         <div class="diary-card-content">
           <div class="line">
             <div class="text">Glasses of water:</div>
-            <div class="variable">{{ entry.water }}</div>
+            <div class="variable">{{ log.water }}</div>
           </div>
           <div class="line">
             <div class="text">Sleep Quality:</div>
-            <div class="variable">
-              {{ entry.sleep }}
+            <div class="variable" [ngClass]="getSleepQualityClass(log.sleep)">
+              {{ log.sleep }}
             </div>
           </div>
           <div class="line">
             <div class="text">Training Time:</div>
-            <div class="variable">{{ entry.training }}</div>
+            <div class="variable">{{ log.training }}</div>
           </div>
           <div class="line">
             <div class="text">Veggies in Meals:</div>
-            <div class="variable">{{ entry.veggies }}</div>
+            <div class="variable">{{ log.veggies }}</div>
           </div>
           <div class="line">
             <div class="text">Excercise of the day:</div>
-            <div class="variable">{{ entry.excercise }}</div>
+            <div class="variable">{{ log.excercise }}</div>
           </div>
-          <div></div>
+          <div class="line">
+            <div class="text">Feelings:</div>
+          </div>
+          <div class="line emotions-list">
+            <div class="variable">
+              <ng-container *ngIf="log.emotions && log.emotions.length > 0">
+                <div
+                  *ngFor="let emotion of log.emotions; let last = last"
+                  class="emotion-item"
+                  [ngClass]="getEmotionClass(emotion.emotion)"
+                >
+                  <div>
+                    <span>{{ emotion.emotion }}</span> -
+                    <span>{{ formatDateTime(emotion.dateTime) }}</span>
+                  </div>
+                </div>
+              </ng-container>
+              <div *ngIf="!log.emotions || log.emotions.length === 0">
+                No emotions recorded.
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!userDiary">
+            <p>No diary entries available.</p>
+          </div>
         </div>
       </div>
     </div>

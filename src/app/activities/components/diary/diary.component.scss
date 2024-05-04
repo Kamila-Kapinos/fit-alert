@@ -126,13 +126,34 @@ $borderRadius: 10px;
     text-align: center;
   }
 
-  .good {
-    background-color: green;
+  .emotions-list {
+    margin-top: 5px; /* Dodaj odstęp między nagłówkiem a listą emocji */
   }
-  .medium {
-    background-color: yellow;
+
+  .emotion-item {
+    margin-bottom: 5px;
+    text-align: left;
   }
-  .bad {
-    background-color: red;
+
+  .quality-good {
+    background-color: #76ec16;
+  }
+  .quality-medium {
+    background-color: #00bbff;
+  }
+  .quality-bad {
+    background-color: #b55fee;
+  }
+
+  .emotion-green {
+    color: #3ac906;
+  }
+
+  .emotion-yellow {
+    color: #ffcc00;
+  }
+
+  .emotion-red {
+    color: red;
   }
 }

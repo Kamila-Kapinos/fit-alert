@@ -32,6 +32,7 @@ export class DailyService {
       this.dailySurvey.sleepQuality = log.data()['sleep'];
       this.dailySurvey.veggiesInMeals = log.data()['veggies'];
       this.dailySurvey.trainingTime = log.data()['training'];
+      this.dailySurvey.emotions = log.data()['emotions'];
 
       return this.dailySurvey;
     } else {
@@ -53,6 +54,32 @@ export class DailyService {
       });
     } catch (error) {
       console.error('Wystąpił błąd:', error);
+    }
+  }
+
+  async addEmotionToDiary(emotion: string) {
+    try {
+      const currentDateTime = new Date();
+      const currentDate = this.getCurrentDate();
+      const docRef = doc(
+        this.firestore,
+        `users/${this.userId}/diary/${currentDate}`,
+      );
+      const docSnap = await getDoc(docRef);
+      let emotions = [];
+      if (docSnap.exists()) {
+        emotions = docSnap.data()['emotions'] || [];
+      }
+      emotions.push({ emotion, dateTime: currentDateTime });
+      await setDoc(docRef, { emotions }, { merge: true });
+      console.log(
+        'Dodano emocję do dziennika:',
+        emotion,
+        'o godzinie:',
+        currentDateTime,
+      );
+    } catch (error) {
+      console.error('Błąd podczas dodawania emocji do dziennika:', error);
     }
   }
 

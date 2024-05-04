@@ -96,6 +96,7 @@ export class AccountService {
         training: 0,
         veggies: 0,
         water: 0,
+        emotions: [],
       },
     );
     await setDoc(
