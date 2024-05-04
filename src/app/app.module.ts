@@ -20,6 +20,7 @@ import { DailySurvey } from './activities/models/daily-survey';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     FormsModule,
     LeafletModule,
   ],
-  providers: [DailySurvey],
+  providers: [DailySurvey, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
