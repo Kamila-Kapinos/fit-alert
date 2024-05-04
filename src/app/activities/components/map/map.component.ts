@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import L, { LatLng, Map } from 'leaflet';
+import L, { LatLng, Map, setOptions } from 'leaflet';
 import { MapService } from '../../services/map.service';
 import { GeoPoint, Timestamp } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
@@ -39,7 +39,8 @@ export class MapComponent implements OnInit {
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
         attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          +'<a href="https://www.flaticon.com/free-icons/venue" title="venue icons"> | Here icon by IYIKON - Flaticon</a>',
       },
     );
     this.map.addLayer(layer);
@@ -56,7 +57,11 @@ export class MapComponent implements OnInit {
   onLocationFound(e: any) {
     const radius = e.accuracy;
 
-    L.marker(e.latlng)
+    L.marker(e.latlng, {icon: L.icon({
+      iconUrl: "assets/media/current-location.png",
+      iconSize: [41, 41],
+    })
+      })
       .addTo(this.map)
       .bindPopup('You are here')
       .openPopup();
@@ -116,7 +121,6 @@ export class MapComponent implements OnInit {
   }
 
   saveActivityLocation(coordinates: LatLng, activity: string) {
-    // console.log(coordinates);
     this.mapService.saveActivity({
       'coordinates': this.convertLatLngToGeoPoint(coordinates),
       'date': Timestamp.now(),
@@ -135,7 +139,6 @@ export class MapComponent implements OnInit {
     let data;
     this.mapService.getActivitiesLocations().then(result => {data = result; result.forEach(
       value => {
-        console.log(value['date'])
         this.addMarker(this.convertGeoPointToLatLng(value['coordinates']), value['name']+" on "+this.formatDateFromTimestamp(value['date']))
       })})
 
