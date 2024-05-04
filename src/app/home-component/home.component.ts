@@ -4,6 +4,7 @@ import { NgForOf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NotificationsService } from '../services/notifications.service';
 import { AccountService } from '../account/services/account.service';
+import { DailyService } from '../activities/services/daily.service';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
     private articlesService: ArticlesService,
     private notificationsService: NotificationsService,
     private accountService: AccountService,
+    private dailyService: DailyService,
   ) {}
 
   ngOnInit(): void {
@@ -49,5 +51,9 @@ export class HomeComponent implements OnInit {
       'Challenge completed',
       'Congrats on completing challenge! Keep up good work!',
     );
+  }
+
+  handleEmotionClick(emotion: string) {
+    this.dailyService.addEmotionToDiary(emotion);
   }
 }

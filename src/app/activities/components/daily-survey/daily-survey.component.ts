@@ -35,6 +35,7 @@ export class DailySurveyComponent {
         training: form.value.training,
         veggies: form.value.veggies,
         water: form.value.water,
+        emotions: form.value.emotions,
       };
       this.dailyService.sendDiaryLog(data);
     } catch (error) {

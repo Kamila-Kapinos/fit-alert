@@ -5,18 +5,30 @@
     <div class="container text-center mt-3">
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-success btn-sm-square">
-            Success
+          <button
+            type="button"
+            class="btn btn-success btn-sm-square"
+            (click)="handleEmotionClick('Thrilled')"
+          >
+            Thrilled
           </button>
         </div>
         <div class="col">
-          <button type="button" class="btn btn-warning btn-sm-square">
-            Warning
+          <button
+            type="button"
+            class="btn btn-warning btn-sm-square"
+            (click)="handleEmotionClick('Sleepy')"
+          >
+            Sleepy
           </button>
         </div>
         <div class="col">
-          <button type="button" class="btn btn-danger btn-sm-square">
-            Danger
+          <button
+            type="button"
+            class="btn btn-danger btn-sm-square"
+            (click)="handleEmotionClick('Unhappy')"
+          >
+            Unhappy
           </button>
         </div>
       </div>
