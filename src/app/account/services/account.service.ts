@@ -48,14 +48,22 @@ export class AccountService {
   loginWithGoogle(user: User) {
     return this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((result) => {
+      .then(async (result) => {
         console.log('Logowanie przez Google udane');
         this.router.navigate(['/']);
         this.saveUserID(result);
-        this.createUserCollections();
-        this.saveUserData(user);
+        if (result.user) {
+          const userDocRef = doc(this.firestore, `users/${result.user.uid}`);
+          const userDocSnapshot = await getDoc(userDocRef);
+
+          if (!userDocSnapshot.exists()) {
+            this.createUserCollections();
+            this.saveUserData(user);
+          }
+        }
       })
-      .catch((error) => {
+      .catch((error: any) => {
+        // Explicitly specify the type of 'error'
         return Promise.reject(error.message);
       });
   }
@@ -118,12 +126,10 @@ export class AccountService {
         console.error('User not logged in or user ID is undefined');
         return;
       }
-
       await setDoc(
         doc(this.firestore, 'users/' + fbUser?.uid + '/accountData', 'data'),
         data,
       ).then(() => {
-        console.log('halo' + this.userId);
         console.log('wysłano dokument');
       });
     } catch (error) {

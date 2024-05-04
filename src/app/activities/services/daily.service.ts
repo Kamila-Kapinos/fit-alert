@@ -2,28 +2,38 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, getDocs, query } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { DailySurvey } from '../models/daily-survey';
+import { AccountService } from '../../account/services/account.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DailyService {
   private firestore: Firestore = inject(Firestore);
-  private userId: any;
-  constructor(private dailySurvey: DailySurvey) {
-    this.userId = sessionStorage.getItem('userID');
-  }
+  constructor(
+    private dailySurvey: DailySurvey,
+    private accountService: AccountService,
+  ) {}
 
   async getDiary() {
     return (
       await getDocs(
-        query(collection(this.firestore, 'users/' + this.userId + '/diary')),
+        query(
+          collection(
+            this.firestore,
+            'users/' + this.accountService.userId + '/diary',
+          ),
+        ),
       )
     ).docs.map((diary) => diary.data());
   }
 
   async getDailyLog(docName: string) {
     let log = await getDoc(
-      doc(this.firestore, 'users/' + this.userId + '/diary', docName),
+      doc(
+        this.firestore,
+        'users/' + this.accountService.userId + '/diary',
+        docName,
+      ),
     );
     if (log.exists()) {
       this.dailySurvey.creationTime = log.data()['time'];
@@ -42,18 +52,22 @@ export class DailyService {
 
   async sendDiaryLog(data: Object) {
     try {
-      await setDoc(
-        doc(
-          this.firestore,
-          'users/' + this.userId + '/diary',
-          this.getCurrentDate(),
-        ),
-        data,
-      ).then(() => {
-        console.log('wysłano dokument');
-      });
+      const currentDate = this.getCurrentDate();
+      const docRef = doc(
+        this.firestore,
+        `users/${this.accountService.userId}/diary/${currentDate}`,
+      );
+
+      const docSnap = await getDoc(docRef);
+      const currentData = docSnap.exists() ? docSnap.data() : {};
+
+      const newData = { ...currentData, ...data };
+
+      await setDoc(docRef, newData);
+
+      console.log('Dokument wysłany pomyślnie.');
     } catch (error) {
-      console.error('Wystąpił błąd:', error);
+      console.error('Wystąpił błąd podczas wysyłania dokumentu:', error);
     }
   }
 
@@ -63,7 +77,7 @@ export class DailyService {
       const currentDate = this.getCurrentDate();
       const docRef = doc(
         this.firestore,
-        `users/${this.userId}/diary/${currentDate}`,
+        `users/${this.accountService.userId}/diary/${currentDate}`,
       );
       const docSnap = await getDoc(docRef);
       let emotions = [];
