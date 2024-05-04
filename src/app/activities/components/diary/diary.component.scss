@@ -126,6 +126,12 @@ $borderRadius: 10px;
     text-align: center;
   }
 
+  .variable-exercise {
+    overflow: auto;
+    max-height: 80px;
+    width: 100%;
+  }
+
   .emotions-list {
     margin-top: 5px; /* Dodaj odstęp między nagłówkiem a listą emocji */
   }
