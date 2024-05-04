@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import L, { LatLng, Map } from 'leaflet';
 import { MapService } from '../../services/map.service';
 import { GeoPoint, Timestamp } from '@angular/fire/firestore';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-map',
@@ -13,7 +14,7 @@ import { GeoPoint, Timestamp } from '@angular/fire/firestore';
 export class MapComponent implements OnInit {
   private map!: Map;
 
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: MapService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     const customIcon = L.icon({
@@ -29,7 +30,7 @@ export class MapComponent implements OnInit {
     L.Marker.prototype.setIcon(customIcon);
 
     const mapOptions = {
-      center: [17.385044, 78.486671] as L.LatLngTuple,
+      center:  new LatLng(50.061822, 19.93701),
       zoom: 10,
     };
     this.map = L.map('map', mapOptions);
@@ -57,7 +58,7 @@ export class MapComponent implements OnInit {
 
     L.marker(e.latlng)
       .addTo(this.map)
-      .bindPopup('You are within ' + radius + ' meters from this point')
+      .bindPopup('You are here')
       .openPopup();
   }
 
@@ -66,7 +67,7 @@ export class MapComponent implements OnInit {
   }
 
   onMapClick(e: any) {
-    const info = '<p>Coordinates: ' + e.latlng.toString() + '</p>';
+    const info = '<p>Coordinates: ' + this.formatCoordinatesToDispplay(e.latlng) + '</p>';
     const button = '<button class="btn btn-dark" id="addActivityBtn">Add activity here</button>';
     const popup = L.popup()
       .setLatLng(e.latlng)
@@ -134,7 +135,8 @@ export class MapComponent implements OnInit {
     let data;
     this.mapService.getActivitiesLocations().then(result => {data = result; result.forEach(
       value => {
-        this.addMarker(this.convertGeoPointToLatLng(value['coordinates']), value['name']+" on "+value['date'])
+        console.log(value['date'])
+        this.addMarker(this.convertGeoPointToLatLng(value['coordinates']), value['name']+" on "+this.formatDateFromTimestamp(value['date']))
       })})
 
   }
@@ -149,5 +151,19 @@ export class MapComponent implements OnInit {
     const latitude = latlng.lat;
     const longitude = latlng.lng;
     return new GeoPoint(latitude, longitude);
+  }
+
+  formatCoordinatesToDispplay(latlng: LatLng){
+    let latitude = latlng.lat;
+    let longitude = latlng.lng;
+    let formattedCoordinates = "[" + latitude.toFixed(2) + "° N, " + longitude.toFixed(2) + "° E]";
+    return formattedCoordinates;
+  }
+
+  formatDateFromTimestamp(timestamp: Timestamp){
+    const milliseconds = timestamp.toMillis();
+    const date = new Date(milliseconds);
+    let formattedDate = this.datePipe.transform(date, 'MMMM d, y \'at\' HH:mm');
+    return formattedDate;
   }
 }

@@ -10,8 +10,8 @@ export class MapService {
   private userId: any;
   
   constructor() { 
-    this.userId = sessionStorage.getItem('userID')
-    // this.userId = "testID"
+    // this.userId = sessionStorage.getItem('userID')
+    this.userId = "testID"
   }
 
   async saveActivity(data: Object) {
