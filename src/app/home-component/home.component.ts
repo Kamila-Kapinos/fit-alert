@@ -88,6 +88,8 @@ export class HomeComponent implements OnInit {
     const lastCompletedDate = localStorage.getItem('lastCompletedDate');
     if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
     else {console.log("failed to vibrate");}
+    const audio = new Audio("../../assets/audio1.mp3");
+    audio.play();
     if (
       !lastCompletedDate ||
       new Date(lastCompletedDate).toDateString() !== new Date().toDateString()
