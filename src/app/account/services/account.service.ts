@@ -44,6 +44,7 @@ export class AccountService {
           const userDocRef = doc(this.firestore, `users/${result.user.uid}`);
           const userDocSnapshot = await getDoc(userDocRef);
           console.log(result.user);
+
           if (!userDocSnapshot.exists()) {
             this.createUserCollections();
             this.saveUserData({
@@ -55,6 +56,23 @@ export class AccountService {
             this.router.navigate(['/account']);
             this.modal.open('Please set your name and last name.');
           }
+        
+        }
+
+        const challangeDocSnapshot = await getDoc(doc(this.firestore, `users/${this.userId}/activities`, "challengeStreak"));
+        if(!challangeDocSnapshot.exists()){
+          console.log("doesn't exist")
+          await setDoc(
+            doc(this.firestore, 'users/' + this.userId + '/activities', 'challengeStreak'),
+            {
+              "lastChallenge": "",
+              "lastChallengeDate": this.getYesterdayTimestamp(),
+              "streakCounter": 0
+            },
+          );
+        }
+        else{
+          console.log("exists")
         }
       })
       .catch((error) => {
@@ -131,8 +149,12 @@ export class AccountService {
       {},
     );
     await setDoc(
-      doc(this.firestore, 'users/' + this.userId + '/activities', 'init'),
-      {},
+      doc(this.firestore, 'users/' + this.userId + '/activities', 'challengeStreak'),
+      {
+        "lastChallenge": "",
+        "lastChallengeDate": this.getYesterdayTimestamp(),
+        "streakCounter": 0
+      },
     );
   }
 
@@ -212,5 +234,22 @@ export class AccountService {
           observer.error(error);
         });
     });
+  }
+
+  getYesterdayTimestamp() {
+    // Pobieramy aktualny timestamp
+    const now = new Date();
+    
+    // Ustawiamy datę na dzisiaj
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+    // Odejmujemy jeden dzień
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    // Zamieniamy na timestamp
+    const yesterdayTimestamp = firebase.firestore.Timestamp.fromDate(yesterday);
+
+    return yesterdayTimestamp;
   }
 }
