@@ -7,16 +7,7 @@ import 'firebase/compat/storage';
 })
 export class PhotoService {
   private storage: Storage = inject(Storage);
-  // private firebase;
-  //   private userId: string|null;
-  //   //private firebase: FirebaseApp = new FirebaseApp();
-  //  private storageRef;
-  //  private storage:unknown|undefined;
-  //   private catalogRef;
-  //   //private firebase:FirebaseApp;
-  // private firebaseConfig={
-  //   storageBucket:'[gs://fit-alert-62706.appspot.com]',
-  // }
+
   private userID: string | null = sessionStorage.getItem("userID");
   private storageRef = ref(this.storage);
   private catalogRef;
@@ -26,17 +17,9 @@ export class PhotoService {
 
       this.catalogRef = ref(this.storageRef, this.userID)
     }
-    // this.userId = sessionStorage.getItem("userID");
-    // this.userId = "test1";
-    // //this.firebase = initializeApp(this.firebaseConfig);
-    // //this.storage = getStorage(AngularFireModule);
-    // //const firestore = getFirestore();
-    // //this.storage = firebase.storage()
-    // this.storage = Storage;
-    // this.storageRef = ref(firebase.app().storage())
-    // //this.storage = this.storage.firebase;
-    // this.storageRef = ref(this.storage);
-    // this.catalogRef = ref(this.storageRef,this.userId);
+    else{
+      console.log("userID is null!",this.userID);
+    }
   }
 
   sendPhoto(photo: string) {
@@ -48,7 +31,8 @@ export class PhotoService {
     const yyyy = rawDate.getFullYear();
     const hh = String(rawDate.getHours());
     const mins = String(rawDate.getMinutes());
-    const date = dd + '_' + mm + '_' + yyyy + '_' + hh + '_' + mins;
+    const sec = String(rawDate.getSeconds());
+    const date = dd + '_' + mm + '_' + yyyy + '_' + hh + '_' + mins + '_' + sec;
     let pathRef;
     try {
       if (typeof this.catalogRef != 'undefined') {
@@ -60,77 +44,14 @@ export class PhotoService {
 
       }
       else {
-        console.log("error sending photo");
+        console.log("error sending photo: catalog is undefined");
       }
     }
     catch {
-      console.log("error sending photo");
+      console.log("error sending photo: catch block");
     }
 
   }
-
-
-  // async getAllPhotos2() {
-  //   this.photos = [];
-  //   console.log("getting all photos!")
-  //   if (typeof this.catalogRef != 'undefined') {
-  //     // Find all the prefixes and items.
-  //     listAll(this.catalogRef)
-  //       .then((res) => {
-  //         res.items.forEach(async (itemRef) => {
-  //           // All the items under listRef.
-  //           // Get the download URL
-  //           console.log("getting all photo urls!")
-  //           return await
-  //             getDownloadURL(itemRef)
-  //               .then((url) => {
-  //                 // Insert url into an <img> tag to "download"
-  //                 this.photos = this.photos.concat([url]);
-  //                 console.log(this.photos);
-
-  //               })
-  //               .catch((error) => {
-  //                 // A full list of error codes is available at
-  //                 // https://firebase.google.com/docs/storage/web/handle-errors
-  //                 console.log("failed to get photo urls!")
-  //                 switch (error.code) {
-  //                   case 'storage/object-not-found':
-  //                     // File doesn't exist
-  //                     break;
-  //                   case 'storage/unauthorized':
-  //                     // User doesn't have permission to access the object
-  //                     break;
-  //                   case 'storage/canceled':
-  //                     // User canceled the upload
-  //                     break;
-
-  //                   // ...
-
-  //                   case 'storage/unknown':
-  //                     // Unknown error occurred, inspect the server response
-  //                     break;
-  //                 }
-  //               })
-  //           console.log(this.photos);
-
-  //         });
-  //       }).catch((error) => {
-  //         // Uh-oh, an error occurred!
-  //         console.log("failed to list all photos!");
-  //         return [];
-  //       }).finally(() => {
-  //         console.log("finally returning: ", this.photos);
-  //         return this.photos;
-  //       });
-
-  //   }
-  //   else {
-
-  //     console.log("end of func, returning: ", this.photos);
-
-  //     return this.photos;
-  //   }
-  // }
 
   async getAllPhotos() {
     this.photos = [];
@@ -142,16 +63,15 @@ export class PhotoService {
     else {
       try {
         const fileRefList = await listAll(this.catalogRef);
-        //console.log("file refs: ", fileRefList);
         const urlPromises = fileRefList.items.map(fileRef => {
           return getDownloadURL(fileRef);
-      });
+        });
 
-      // Wait for all promises to resolve
-      const urls = await Promise.all(urlPromises);
-      this.photos = urls;
-      //console.log(this.photos);
-      return this.photos;
+        // Wait for all promises to resolve
+        const urls = await Promise.all(urlPromises);
+        console.log("photo service urls",urls)
+        this.photos = urls;
+        return this.photos;
       }
       catch {
         console.log("error getting all photos");
