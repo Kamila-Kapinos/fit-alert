@@ -1,8 +1,12 @@
 video {
   border: solid 2px red;
+  width: fit-content;
+  height: fit-content;
 }
 canvas {
   border: solid 2px blue;
+  //width: min(90%,70em);
+  //height: auto;
 }
 .show {
   display: block;
@@ -23,4 +27,30 @@ canvas {
 .camera-buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+.online-photos-container{
+  margin:0;
+  padding: 0;
+  display:flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+
+}
+img{
+  width: fit-content;
+  height: fit-content ;
+  padding:0;
+  margin:1em;
+
+}
+h4{
+  width: 100%;
+  text-align: center;
+}
+button{
+  margin:1em 1em 0 0 ;
+
 }
