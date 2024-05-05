@@ -86,11 +86,13 @@ export class HomeComponent implements OnInit {
 
   challengeCompleted() {
     const lastCompletedDate = localStorage.getItem('lastCompletedDate');
-
+    if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
+    else {console.log("failed to vibrate");}
     if (
       !lastCompletedDate ||
       new Date(lastCompletedDate).toDateString() !== new Date().toDateString()
     ) {
+
       this.notificationsService.sendNotification(
         'Challenge completed',
         'Congrats on completing challenge! Keep up good work!',
