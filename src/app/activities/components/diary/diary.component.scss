@@ -126,13 +126,40 @@ $borderRadius: 10px;
     text-align: center;
   }
 
-  .good {
-    background-color: green;
+  .variable-exercise {
+    overflow: auto;
+    max-height: 80px;
+    width: 80%;
   }
-  .medium {
-    background-color: yellow;
+
+  .emotions-list {
+    margin-top: 5px; /* Dodaj odstęp między nagłówkiem a listą emocji */
   }
-  .bad {
-    background-color: red;
+
+  .emotion-item {
+    margin-bottom: 5px;
+    text-align: left;
+  }
+
+  .quality-good {
+    background-color: #76ec16;
+  }
+  .quality-medium {
+    background-color: #00bbff;
+  }
+  .quality-bad {
+    background-color: #b55fee;
+  }
+
+  .emotion-green {
+    color: #3ac906;
+  }
+
+  .emotion-yellow {
+    color: #ffcc00;
+  }
+
+  .emotion-red {
+    color: red;
   }
 }

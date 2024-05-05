@@ -45,15 +45,25 @@ export class AccountService {
       });
   }
 
-  loginWithGoogle() {
+  loginWithGoogle(user: User) {
     return this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((result) => {
+      .then(async (result) => {
         console.log('Logowanie przez Google udane');
         this.router.navigate(['/']);
         this.saveUserID(result);
+        if (result.user) {
+          const userDocRef = doc(this.firestore, `users/${result.user.uid}`);
+          const userDocSnapshot = await getDoc(userDocRef);
+
+          if (!userDocSnapshot.exists()) {
+            this.createUserCollections();
+            this.saveUserData(user);
+          }
+        }
       })
-      .catch((error) => {
+      .catch((error: any) => {
+        // Explicitly specify the type of 'error'
         return Promise.reject(error.message);
       });
   }
@@ -96,6 +106,7 @@ export class AccountService {
         training: 0,
         veggies: 0,
         water: 0,
+        emotions: [],
       },
     );
     await setDoc(
@@ -109,9 +120,14 @@ export class AccountService {
   }
 
   async saveUserData(data: Object) {
+    const fbUser = await this.auth.authState.pipe(take(1)).toPromise();
     try {
+      if (!fbUser || !fbUser?.uid) {
+        console.error('User not logged in or user ID is undefined');
+        return;
+      }
       await setDoc(
-        doc(this.firestore, 'users/' + this.userId + '/accountData', 'data'),
+        doc(this.firestore, 'users/' + fbUser?.uid + '/accountData', 'data'),
         data,
       ).then(() => {
         console.log('wysłano dokument');

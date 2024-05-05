@@ -10,6 +10,8 @@ import { NgIf } from '@angular/common';
 import { AccountService } from '../../services/account.service';
 import { RouterLink } from '@angular/router';
 import { ErrorsComponent } from '../../../forms/errors/errors.component';
+import { User } from '../../models/user';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -54,7 +56,14 @@ export class LoginComponent {
   }
 
   loginWithGoogle() {
-    this.accountService.loginWithGoogle().catch((error) => {
+    const user: User = {
+      name: '',
+      surname: '',
+      email: this.loginForm.value.email,
+      phone: '',
+    };
+
+    this.accountService.loginWithGoogle(user).catch((error) => {
       this.errorMessage = error;
     });
   }
