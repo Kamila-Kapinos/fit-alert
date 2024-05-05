@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const streakCounterString = localStorage.getItem('streakCounter');
     this.challengeService.getChallengeInfo().then(result => {
       console.log(result);
       this.challengeInfo = {
@@ -62,7 +61,6 @@ export class HomeComponent implements OnInit {
           console.error('Error fetching articles:', error);
         });
   
-      // const lastChallengeDateString = localStorage.getItem('lastChallengeDate');
       const lastChallengeDateString = this.challengeInfo.lastChallengeDate.toDate().toDateString();
       if (lastChallengeDateString) {
         const lastChallengeDate = new Date(lastChallengeDateString);
@@ -74,7 +72,6 @@ export class HomeComponent implements OnInit {
         ) {
           this.getRandomChallenge();
         } else {
-          // const lastChallenge = localStorage.getItem('lastChallenge');
           const lastChallenge = this.challengeInfo.lastChallenge;
           if (lastChallenge) {
             this.randomChallenge = (lastChallenge);
@@ -96,13 +93,6 @@ export class HomeComponent implements OnInit {
       const challenges = await this.challengeService.getChallenges();
       const randomIndex = Math.floor(Math.random() * challenges.length);
       this.randomChallenge = challenges[randomIndex]['challenge'];
-
-      // localStorage.setItem('lastChallengeDate', new Date().toISOString()); //??
-
-      // localStorage.setItem(
-      //   'lastChallenge',
-      //   JSON.stringify(this.randomChallenge),
-      // );
       
     } catch (error: any) {
       console.error('Error fetching challenges:', error);
@@ -110,7 +100,6 @@ export class HomeComponent implements OnInit {
   }
 
   challengeCompleted() {
-    // const lastCompletedDate = localStorage.getItem('lastCompletedDate');
     const lastCompletedDate = this.challengeInfo.lastChallengeDate.toDate();
     if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
     else {console.log("failed to vibrate");}
@@ -126,8 +115,6 @@ export class HomeComponent implements OnInit {
 
       this.streakCounter++;
 
-      // localStorage.setItem('streakCounter', String(this.streakCounter));
-      // localStorage.setItem('lastCompletedDate', new Date().toDateString());
       this.challengeService.saveCompletedChallenge(      {
         "lastChallenge": this.randomChallenge,
         "lastChallengeDate": Timestamp.now(),
