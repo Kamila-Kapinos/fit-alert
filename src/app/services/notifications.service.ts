@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
@@ -19,13 +19,15 @@ export class NotificationsService {
       });
     }
 
-    if (!window) {
+    this.popup.open(text);
+
+
+    if (!window.Notification) {
       console.log('Not supported');
-      this.popup.open(text);
     } else {
       new Notification(title, { body: text });
-      // window.navigator.vibrate([200, 100, 200]);
       console.log('Sent notification');
     }
   }
+
 }

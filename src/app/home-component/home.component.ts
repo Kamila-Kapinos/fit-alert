@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
         });
   
       // const lastChallengeDateString = localStorage.getItem('lastChallengeDate');
-      const lastChallengeDateString = new Date(this.challengeInfo.lastChallengeDate).toDateString();
+      const lastChallengeDateString = this.challengeInfo.lastChallengeDate.toDate().toDateString();
       if (lastChallengeDateString) {
         const lastChallengeDate = new Date(lastChallengeDateString);
         const today = new Date();
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
 
   challengeCompleted() {
     // const lastCompletedDate = localStorage.getItem('lastCompletedDate');
-    const lastCompletedDate = new Date(this.challengeInfo.lastChallengeDate);
+    const lastCompletedDate = this.challengeInfo.lastChallengeDate.toDate();
     if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
     else {console.log("failed to vibrate");}
     if (
