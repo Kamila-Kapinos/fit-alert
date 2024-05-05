@@ -7,6 +7,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { Observable, Observer, take } from 'rxjs';
 import { NotificationsService } from '../../services/notifications.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root',
@@ -20,25 +21,59 @@ export class AccountService {
     private auth: AngularFireAuth,
     private router: Router,
     private notificationsService: NotificationsService,
+    private modal: NgbModal,
   ) {}
 
   private saveUserID(result: firebase.auth.UserCredential) {
     this.userId = result.user?.uid;
     sessionStorage.setItem('userID', this.userId);
-    this.notificationsService.sendNotification(
-      'Succesful login',
-      'Succesfully logged in!',
-    );
-    console.log('after not func');
+    // this.notificationsService.sendNotification(
+    //   'Succesful login',
+    //   'Succesfully logged in!',
+    // );
   }
 
   loginWithEmail(email: string, password: string) {
     return this.auth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then(async (result) => {
         console.log('Logowanie udane');
         this.router.navigate(['/']);
         this.saveUserID(result);
+        if (result.user) {
+          const userDocRef = doc(this.firestore, `users/${result.user.uid}`);
+          const userDocSnapshot = await getDoc(userDocRef);
+          console.log(result.user);
+
+          if (!userDocSnapshot.exists()) {
+            this.createUserCollections();
+            this.saveUserData({
+              name: '',
+              surname: '',
+              email: email,
+              phone: '',
+            });
+            this.router.navigate(['/account']);
+            this.modal.open('Please set your name and last name.');
+          }
+        
+        }
+
+        const challangeDocSnapshot = await getDoc(doc(this.firestore, `users/${this.userId}/activities`, "challengeStreak"));
+        if(!challangeDocSnapshot.exists()){
+          console.log("doesn't exist")
+          await setDoc(
+            doc(this.firestore, 'users/' + this.userId + '/activities', 'challengeStreak'),
+            {
+              "lastChallenge": "",
+              "lastChallengeDate": this.getYesterdayTimestamp(),
+              "streakCounter": 0
+            },
+          );
+        }
+        else{
+          console.log("exists")
+        }
       })
       .catch((error) => {
         return Promise.reject(error.message);
@@ -114,8 +149,12 @@ export class AccountService {
       {},
     );
     await setDoc(
-      doc(this.firestore, 'users/' + this.userId + '/activities', 'init'),
-      {},
+      doc(this.firestore, 'users/' + this.userId + '/activities', 'challengeStreak'),
+      {
+        "lastChallenge": "",
+        "lastChallengeDate": this.getYesterdayTimestamp(),
+        "streakCounter": 0
+      },
     );
   }
 
@@ -195,5 +234,22 @@ export class AccountService {
           observer.error(error);
         });
     });
+  }
+
+  getYesterdayTimestamp() {
+    // Pobieramy aktualny timestamp
+    const now = new Date();
+    
+    // Ustawiamy datę na dzisiaj
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+    // Odejmujemy jeden dzień
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    // Zamieniamy na timestamp
+    const yesterdayTimestamp = firebase.firestore.Timestamp.fromDate(yesterday);
+
+    return yesterdayTimestamp;
   }
 }

@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationsService {
-  constructor() {}
+  constructor(private popup: NgbModal) {}
 
   public async sendNotification(title: string, text: string) {
     console.log('In notification func');
@@ -18,13 +19,15 @@ export class NotificationsService {
       });
     }
 
-    if (!window) {
+    this.popup.open(text);
+
+
+    if (!window.Notification) {
       console.log('Not supported');
+    } else {
+      new Notification(title, { body: text });
+      console.log('Sent notification');
     }
-
-    new Notification(title, { body: text });
-    window.navigator.vibrate([200, 100, 200]);
-
-    console.log('Sent notification');
   }
+
 }

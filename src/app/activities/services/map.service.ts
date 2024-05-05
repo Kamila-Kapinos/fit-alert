@@ -18,7 +18,6 @@ export class MapService {
   private firestore: Firestore = inject(Firestore);
 
   constructor(private auth: AngularFireAuth) {
-    // this.userId = "testID"
   }
 
   async saveActivity(data: Object) {

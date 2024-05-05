@@ -15,7 +15,6 @@ export class DiaryComponent {
   userDiary: any;
 
   constructor(public dailyService: DailyService) {
-    // this.userDiary = this.readDiary()
   }
 
   ngOnInit(): void {
@@ -28,7 +27,6 @@ export class DiaryComponent {
       .catch((error) => {
         console.error('Error fetching diary data:', error);
       });
-    // console.log(this.diary2);
   }
 
   formatDateTime(dateTime: { seconds: number; nanoseconds: number }): string {
