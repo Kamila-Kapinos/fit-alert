@@ -4,9 +4,7 @@ This is app to help you track your healthy habits. You can save information on s
 
 ## Peak into app
 
-<img src="image.png" height="400">
-<img src="image-1.png" height="400">
-<img src="image-2.png" height="400">
+<img src="image.png" height="400"> <img src="image-1.png" height="400"> <img src="image-2.png" height="400">
 
 ## Information for other project tasks
 
