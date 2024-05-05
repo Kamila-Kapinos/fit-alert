@@ -16,21 +16,21 @@ import { ChallengeService } from '../../../home-component/services/challange.ser
 })
 export class AccountSettingsComponent implements OnInit {
   public user!: User;
-  public lastChallenge: string = "";
+  public lastChallenge: string = '';
   public challengeStreak: number = 0;
 
   constructor(
     public accountService: AccountService,
     private router: Router,
-    private challengeService: ChallengeService
-  ) {
-    this.challengeService.getChallengeInfo().then(result => {
-      this.lastChallenge = result.lastChallenge;
-      this.challengeStreak = result.streakCounter;
-    });
-  }
+    private challengeService: ChallengeService,
+  ) {}
 
   ngOnInit() {
+    this.challengeService.getCompletedChallenges().then((list) => {
+      list.sort((a, b) => b.date.localeCompare(a.date));
+      this.lastChallenge = list.length > 0 ? list[0].challenge : '';
+      this.challengeStreak = list.length;
+    });
     this.user = this.accountService.currentUser ?? {
       name: '',
       surname: '',
