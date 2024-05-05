@@ -94,12 +94,7 @@ export class MapComponent implements OnInit {
     L.popup()
       .setLatLng(e.latlng)
       .setContent(
-        info +
-          bikeButton +
-          walkButton +
-          gymButton +
-          runButton +
-          tennisButton,
+        info + bikeButton + walkButton + gymButton + runButton + tennisButton,
       )
       .openOn(this.map);
 
@@ -120,11 +115,13 @@ export class MapComponent implements OnInit {
   }
 
   saveActivityLocation(coordinates: LatLng, activity: string) {
-    this.mapService.saveActivity({
-      coordinates: this.convertLatLngToGeoPoint(coordinates),
-      date: Timestamp.now(),
-      name: activity,
-    });
+    this.mapService
+      .saveActivity({
+        coordinates: this.convertLatLngToGeoPoint(coordinates),
+        date: Timestamp.now(),
+        name: activity,
+      })
+      .then(() => window.location.reload());
     console.log('Saved location');
   }
 

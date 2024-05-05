@@ -23,7 +23,7 @@ export class NotificationsService {
     }
 
     new Notification(title, { body: text });
-    window.navigator.vibrate([200, 100, 200]);
+    // window.navigator.vibrate([200, 100, 200]);
 
     console.log('Sent notification');
   }
