@@ -22,8 +22,6 @@ export class HomeComponent implements OnInit {
   streakCounter = 0;
   trendingArticles: any[] = [];
   randomChallenge: any;
-  lastChallengeDate: Date | null = null;
-  challengeInfo: any;
 
   constructor(
     private articlesService: ArticlesService,
@@ -36,80 +34,51 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.challengeService.getChallengeInfo().then(result => {
-      console.log(result);
-      this.challengeInfo = {
-        "lastChallenge": result.lastChallenge,
-        "lastChallengeDate": result.lastChallengeDate,
-        "streakCounter": result.streakCounter
-      }; 
 
-      console.log("Streak: ", this.challengeInfo.streakCounter)
-      const streakCounterString = this.challengeInfo.streakCounter.toString();    
-  
-      if (streakCounterString) {
-        this.streakCounter = parseInt(streakCounterString, 10);
-      }
       this.userName = this.accountService.currentUser?.name ?? '';
       this.articlesService
         .getArticles()
         .then((data: any) => {
           this.trendingArticles = data;
-          console.log(data);
         })
         .catch((error: any) => {
           console.error('Error fetching articles:', error);
         });
-  
-      const lastChallengeDateString = this.challengeInfo.lastChallengeDate.toDate().toDateString();
-      if (lastChallengeDateString) {
-        const lastChallengeDate = new Date(lastChallengeDateString);
-        const today = new Date();
-        if (
-          today.getDate() !== lastChallengeDate.getDate() ||
-          today.getMonth() !== lastChallengeDate.getMonth() ||
-          today.getFullYear() !== lastChallengeDate.getFullYear()
-        ) {
-          this.getRandomChallenge();
-        } else {
-          const lastChallenge = this.challengeInfo.lastChallenge;
-          if (lastChallenge) {
-            this.randomChallenge = (lastChallenge);
-          }
-        }
-      } else {
-        this.getRandomChallenge();
-      }
 
-    }).catch((error) => {
-        console.error('Error fetching diary data:', error);
-      });
-
-
+      this.setChallengeOfDay().then(() => {});
+      this.setStreakCounter().then(() => {});
   }
 
-  async getRandomChallenge() {
+  async setChallengeOfDay() {
     try {
       const challenges = await this.challengeService.getChallenges();
-      const randomIndex = Math.floor(Math.random() * challenges.length);
-      this.randomChallenge = challenges[randomIndex]['challenge'];
-      
+      const length = challenges.length;
+      const dayOfMonth = (new Date()).getDate();
+      const index = dayOfMonth % length;
+      this.randomChallenge = challenges[index]['challenge'];
     } catch (error: any) {
       console.error('Error fetching challenges:', error);
     }
   }
 
-  challengeCompleted() {
-    const lastCompletedDate = this.challengeInfo.lastChallengeDate.toDate();
+  async setStreakCounter() {
+    const completed = await this.challengeService.getCompletedChallenges();
+    this.streakCounter = completed.length;
+  }
+
+  async challengeCompleted(challenge: string) {
+    const ret = await this.challengeService.saveCompletedChallenge(      {
+      date: (new Date()).toISOString().substring(0, 10),
+      challenge: challenge
+    })
 
     if (
-      !lastCompletedDate ||
-      new Date(lastCompletedDate).toDateString() !== new Date().toDateString()
+        ret === 0
     ) {
       if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
       else {console.log("failed to vibrate");}
       const audio = new Audio("../../assets/audio1.mp3");
-      audio.play();      
+      audio.play();
 
       this.notificationsService.sendNotification(
         'Challenge completed',
@@ -117,13 +86,7 @@ export class HomeComponent implements OnInit {
       );
 
       this.streakCounter++;
-
-      this.challengeService.saveCompletedChallenge(      {
-        "lastChallenge": this.randomChallenge,
-        "lastChallengeDate": Timestamp.now(),
-        "streakCounter": this.streakCounter
-      })
-    } else {
+    } else if (ret === -1) {
       this.notificationsService.sendNotification(
         'Challenge already completed today',
         'You have already completed the challenge today!',
