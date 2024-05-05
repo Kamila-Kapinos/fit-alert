@@ -101,14 +101,15 @@ export class HomeComponent implements OnInit {
 
   challengeCompleted() {
     const lastCompletedDate = this.challengeInfo.lastChallengeDate.toDate();
-    if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
-    else {console.log("failed to vibrate");}
-    const audio = new Audio("../../assets/audio1.mp3");
-    audio.play();
+
     if (
       !lastCompletedDate ||
       new Date(lastCompletedDate).toDateString() !== new Date().toDateString()
     ) {
+      if(navigator.vibrate([100,30,300,30])){console.log("success vibrating")}
+      else {console.log("failed to vibrate");}
+      const audio = new Audio("../../assets/audio1.mp3");
+      audio.play();      
 
       this.notificationsService.sendNotification(
         'Challenge completed',

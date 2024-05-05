@@ -5,6 +5,7 @@ import { User } from '../../models/user';
 import { AccountService } from '../../services/account.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { ChallengeService } from '../../../home-component/services/challange.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -15,11 +16,19 @@ import { NgIf } from '@angular/common';
 })
 export class AccountSettingsComponent implements OnInit {
   public user!: User;
+  public lastChallenge: string = "";
+  public challengeStreak: number = 0;
 
   constructor(
     public accountService: AccountService,
     private router: Router,
-  ) {}
+    private challengeService: ChallengeService
+  ) {
+    this.challengeService.getChallengeInfo().then(result => {
+      this.lastChallenge = result.lastChallenge;
+      this.challengeStreak = result.streakCounter;
+    });
+  }
 
   ngOnInit() {
     this.user = this.accountService.currentUser ?? {
