@@ -1,5 +1,3 @@
-/* eslint-disable padded-blocks */
-/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { DailyService } from '../../services/daily.service';

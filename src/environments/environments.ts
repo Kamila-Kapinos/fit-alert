@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable @typescript-eslint/comma-dangle */
 export const environment = {
   production: false,
   firebase: {

@@ -6,8 +6,7 @@ import { NotificationsService } from '../services/notifications.service';
 import { AccountService } from '../account/services/account.service';
 import { DailyService } from '../activities/services/daily.service';
 import { ChallengeService } from './services/challange.service';
-import firebase from 'firebase/compat';
-import DocumentData = firebase.firestore.DocumentData;
+import { DocumentData } from 'firebase/firestore';
 import { Timestamp } from '@angular/fire/firestore';
 
 @Component({

@@ -7,7 +7,6 @@ import {
   query,
   setDoc,
 } from '@angular/fire/firestore';
-import { v4 as uuidv4 } from 'uuid';
 import { take } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -25,7 +24,7 @@ export class MapService {
     console.log('Saving activity data:', data);
     try {
       await setDoc(
-        doc(this.firestore, 'users/' + fbUser?.uid + '/map', uuidv4()),
+        doc(this.firestore, 'users/' + fbUser?.uid + '/map', crypto.randomUUID()),
         data,
       ).then(() => {
         console.log('wysłano dokument');
