@@ -3,11 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 
 @Component({
-  selector: 'app-take-a-photo',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './take-a-photo.component.html',
-  styleUrl: './take-a-photo.component.scss',
+    selector: 'app-take-a-photo',
+    imports: [CommonModule],
+    templateUrl: './take-a-photo.component.html',
+    styleUrl: './take-a-photo.component.scss'
 })
 export class TakeAPhotoComponent implements OnInit {
 

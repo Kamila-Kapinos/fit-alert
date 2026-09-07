@@ -11,11 +11,10 @@ import DocumentData = firebase.firestore.DocumentData;
 import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [NgForOf, RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+    selector: 'app-home',
+    imports: [NgForOf, RouterLink],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   userName: string = '';

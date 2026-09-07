@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-article',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './article.component.html',
-  styleUrl: './article.component.scss',
+    selector: 'app-article',
+    imports: [CommonModule],
+    templateUrl: './article.component.html',
+    styleUrl: './article.component.scss'
 })
 export class ArticleComponent {
   articles: any;

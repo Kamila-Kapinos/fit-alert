@@ -14,17 +14,16 @@ import { User } from '../../models/user';
 import { user } from '@angular/fire/auth';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule,
-    RouterLink,
-    ErrorsComponent,
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+    selector: 'app-login',
+    imports: [
+        FormsModule,
+        NgIf,
+        ReactiveFormsModule,
+        RouterLink,
+        ErrorsComponent,
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup;

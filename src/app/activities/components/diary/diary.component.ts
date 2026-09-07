@@ -5,11 +5,10 @@ import { Component } from '@angular/core';
 import { DailyService } from '../../services/daily.service';
 
 @Component({
-  selector: 'app-diary',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './diary.component.html',
-  styleUrl: './diary.component.scss',
+    selector: 'app-diary',
+    imports: [CommonModule],
+    templateUrl: './diary.component.html',
+    styleUrl: './diary.component.scss'
 })
 export class DiaryComponent {
   userDiary: any;

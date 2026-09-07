@@ -8,11 +8,10 @@ import { NgIf } from '@angular/common';
 import { ChallengeService } from '../../../home-component/services/challange.service';
 
 @Component({
-  selector: 'app-account-settings',
-  standalone: true,
-  imports: [FormsModule, NgIf],
-  templateUrl: './account-settings.component.html',
-  styleUrl: './account-settings.component.scss',
+    selector: 'app-account-settings',
+    imports: [FormsModule, NgIf],
+    templateUrl: './account-settings.component.html',
+    styleUrl: './account-settings.component.scss'
 })
 export class AccountSettingsComponent implements OnInit {
   public user!: User;
