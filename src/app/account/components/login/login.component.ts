@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 import { AccountService } from '../../services/account.service';
 import { RouterLink } from '@angular/router';
 import { ErrorsComponent } from '../../../forms/errors/errors.component';
@@ -15,14 +15,7 @@ import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule,
-    RouterLink,
-    ErrorsComponent,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, ErrorsComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

@@ -8,20 +8,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { User } from '../../models/user';
-import { NgIf } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { ErrorsComponent } from '../../../forms/errors/errors.component';
 
 @Component({
   selector: 'app-sign-up',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    RouterLink,
-    ErrorsComponent,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, ErrorsComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })

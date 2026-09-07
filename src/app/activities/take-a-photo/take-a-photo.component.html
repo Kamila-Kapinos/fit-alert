@@ -1,29 +1,63 @@
-<h4> Show us what is on your mind:
-</h4>
+<h4>Show us what is on your mind:</h4>
 <div class="camera-container">
   <div class="camera-icon">
-    <button type="button" (click)="showCamera()" *ngIf="!camera">
-      <img src="../../../assets/camera-icon.png" alt="icon of a camera" />
-    </button>
+    @if (!camera) {
+      <button type="button" (click)="showCamera()">
+        <img src="../../../assets/camera-icon.png" alt="icon of a camera" />
+      </button>
+    }
   </div>
 
-  <div class="video-container" [class.hide]="!camera" [class.show]="camera && !hasError">
-    <video [class.show]="!isCaptured" [class.hide]="isCaptured" #video id="video" autoplay [width]="Width"
-      [height]="Height"></video>
-    <canvas [class.show]="isCaptured" [class.hide]="!isCaptured" #canvas id="canvas" [width]="canvasWidth"
-      [height]="canvasHeight">
+  <div
+    class="video-container"
+    [class.hide]="!camera"
+    [class.show]="camera && !hasError"
+  >
+    <video
+      [class.show]="!isCaptured"
+      [class.hide]="isCaptured"
+      #video
+      id="video"
+      autoplay
+      [width]="Width"
+      [height]="Height"
+    ></video>
+    <canvas
+      [class.show]="isCaptured"
+      [class.hide]="!isCaptured"
+      #canvas
+      id="canvas"
+      [width]="canvasWidth"
+      [height]="canvasHeight"
+    >
     </canvas>
   </div>
 </div>
-<div class="camera-buttons" [class.hide]="!camera" [class.show]="camera && !hasError">
+<div
+  class="camera-buttons"
+  [class.hide]="!camera"
+  [class.show]="camera && !hasError"
+>
   <!-- </div> [class.show]="camera"  [class.hide]="!camera"> -->
-  <button type="button" (click)="hideCamera()" class="btn btn-secondary">Hide camera</button>
-  <button type="button" (click)="takePhoto()" class="btn btn-secondary">Take photo</button>
-  <button type="button" (click)="retakePhoto()" class="btn btn-secondary">Retake photo</button>
-  <button type="button" (click)="sendPhoto()" class="btn btn-danger">!!! Send photo !!!</button>
+  <button type="button" (click)="hideCamera()" class="btn btn-secondary">
+    Hide camera
+  </button>
+  <button type="button" (click)="takePhoto()" class="btn btn-secondary">
+    Take photo
+  </button>
+  <button type="button" (click)="retakePhoto()" class="btn btn-secondary">
+    Retake photo
+  </button>
+  <button type="button" (click)="sendPhoto()" class="btn btn-danger">
+    !!! Send photo !!!
+  </button>
 </div>
 
-<button type="button" (click)="getAllPhotos()" class="btn btn-secondary">Get all online photos</button>
+<button type="button" (click)="getAllPhotos()" class="btn btn-secondary">
+  Get all online photos
+</button>
 <div class="online-photos-container">
-  <img *ngFor="let photo of onlinePhotos" [src]="photo" alt="user photo" [width]="Width">
+  @for (photo of onlinePhotos; track photo) {
+    <img [src]="photo" alt="user photo" [width]="Width" />
+  }
 </div>

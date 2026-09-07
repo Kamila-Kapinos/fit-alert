@@ -1,5 +1,7 @@
-<ng-container *ngIf="fControl?.dirty">
-  <div *ngFor="let error of errors">
-    <small class="text-danger">{{ error }}</small>
-  </div>
-</ng-container>
+@if (fControl?.dirty) {
+  @for (error of errors; track error) {
+    <div>
+      <small class="text-danger">{{ error }}</small>
+    </div>
+  }
+}

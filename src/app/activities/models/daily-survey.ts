@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable @typescript-eslint/indent */
 class Emotion {
   emotion: string = '';
   createdAt: Date = new Date();

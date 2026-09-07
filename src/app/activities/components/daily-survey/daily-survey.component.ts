@@ -7,11 +7,10 @@ import { DailyService } from '../../services/daily.service';
 import { TakeAPhotoComponent } from '../../take-a-photo/take-a-photo.component';
 
 @Component({
-  selector: 'app-daily-survey',
-  standalone: true,
-  imports: [FormsModule, TakeAPhotoComponent],
-  templateUrl: './daily-survey.component.html',
-  styleUrl: './daily-survey.component.scss',
+    selector: 'app-daily-survey',
+    imports: [FormsModule, TakeAPhotoComponent],
+    templateUrl: './daily-survey.component.html',
+    styleUrl: './daily-survey.component.scss'
 })
 export class DailySurveyComponent {
   constructor(

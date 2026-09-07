@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-errors',
-  standalone: true,
-  imports: [NgForOf, NgIf],
+  imports: [],
   templateUrl: './errors.component.html',
   styleUrl: './errors.component.scss',
 })

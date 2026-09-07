@@ -24,7 +24,7 @@
     </div>
     <div class="accomplishments">
       <p>Last completed challenge: {{ lastChallenge }}</p>
-      <p>Challenge streak: {{ challengeStreak}}</p>
+      <p>Challenge streak: {{ challengeStreak }}</p>
     </div>
   </div>
 
@@ -47,9 +47,9 @@
           #name="ngModel"
         />
       </div>
-      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
-        Please fill this field
-      </div>
+      @if (name.touched && name.invalid) {
+        <div class="alert alert-danger">Please fill this field</div>
+      }
     </div>
     <div class="row">
       <div class="col-sm-6">
@@ -66,12 +66,9 @@
           required
         />
       </div>
-      <div
-        *ngIf="surname.touched && surname.invalid"
-        class="alert alert-danger"
-      >
-        Please fill this field
-      </div>
+      @if (surname.touched && surname.invalid) {
+        <div class="alert alert-danger">Please fill this field</div>
+      }
     </div>
 
     <div class="row">
@@ -107,9 +104,9 @@
           #phone="ngModel"
         />
       </div>
-      <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">
-        Please enter a valid phone number
-      </div>
+      @if (phone.touched && phone.invalid) {
+        <div class="alert alert-danger">Please enter a valid phone number</div>
+      }
     </div>
 
     <div class="row">

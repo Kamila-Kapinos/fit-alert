@@ -66,12 +66,11 @@
           formControlName="confirmPassword"
           required
         />
-        <small
-          *ngIf="signupForm.errors?.['passwordMismatch']"
-          class="error-message text-danger mt-2"
-        >
-          Password and confirm password must match.
-        </small>
+        @if (signupForm.errors?.["passwordMismatch"]) {
+          <small class="error-message text-danger mt-2">
+            Password and confirm password must match.
+          </small>
+        }
         <app-errors [control]="signupForm.get('confirmPassword')"></app-errors>
       </div>
       <div class="col-12">
@@ -86,13 +85,13 @@
           <label class="form-check-label" for="gridCheck">
             I accept the terms and conditions
           </label>
-          <div
-            *ngIf="signupForm.get('termsAndConditions')?.hasError('required')"
-          >
-            <small class="error-message text-danger"
-              >You must accept the terms and conditions.</small
-            >
-          </div>
+          @if (signupForm.get("termsAndConditions")?.hasError("required")) {
+            <div>
+              <small class="error-message text-danger"
+                >You must accept the terms and conditions.</small
+              >
+            </div>
+          }
         </div>
       </div>
       <div class="col-12 mt-3">

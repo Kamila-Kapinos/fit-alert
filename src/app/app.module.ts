@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './common-components/components/navbar/navbar.component';
 import { LayoutComponent } from './common-components/components/layout/layout.component';
 import { FooterComponent } from './common-components/components/footer/footer.component';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -14,13 +13,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environments';
 import { FormsModule } from '@angular/forms';
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import {getStorage, provideStorage} from '@angular/fire/storage'
+import { getStorage, provideStorage } from '@angular/fire/storage';
 import { DailySurvey } from './activities/models/daily-survey';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
@@ -31,15 +29,10 @@ import { DatePipe } from '@angular/common';
     FooterComponent,
   ],
   imports: [
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
-    provideStorage(()=>getStorage()),
     CommonModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
-    CollapseModule.forRoot(),
     NgbCollapse,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
@@ -48,9 +41,15 @@ import { DatePipe } from '@angular/common';
       registrationStrategy: 'registerWhenStable:30000',
     }),
     FormsModule,
-    LeafletModule,
   ],
-  providers: [DailySurvey, DatePipe],
+  providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
+    DailySurvey,
+    DatePipe,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
