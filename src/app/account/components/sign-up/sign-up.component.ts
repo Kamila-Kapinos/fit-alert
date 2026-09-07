@@ -8,21 +8,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { User } from '../../models/user';
-import { NgIf } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { ErrorsComponent } from '../../../forms/errors/errors.component';
 
 @Component({
-    selector: 'app-sign-up',
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        RouterLink,
-        ErrorsComponent,
-    ],
-    templateUrl: './sign-up.component.html',
-    styleUrl: './sign-up.component.scss'
+  selector: 'app-sign-up',
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, ErrorsComponent],
+  templateUrl: './sign-up.component.html',
+  styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent implements OnInit {
   signupForm!: FormGroup;

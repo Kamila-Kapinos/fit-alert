@@ -1,25 +1,22 @@
-import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 
 @Component({
-    selector: 'app-take-a-photo',
-    imports: [CommonModule],
-    templateUrl: './take-a-photo.component.html',
-    styleUrl: './take-a-photo.component.scss'
+  selector: 'app-take-a-photo',
+  imports: [],
+  templateUrl: './take-a-photo.component.html',
+  styleUrl: './take-a-photo.component.scss',
 })
 export class TakeAPhotoComponent implements OnInit {
-
   @ViewChild('video') public video: ElementRef = new ElementRef('video');
   @ViewChild('canvas') public canvas: ElementRef = new ElementRef('canvas');
 
   windowWidth: number = window.screen.width;
   windowHeight: number = window.screen.height;
-  Width: number = this.windowWidth;//480;
-  Height: number = this.windowHeight;//360;
-  canvasWidth: number = 700;//this.windowWidth/2;//480;
-  canvasHeight: number = 700;//this.windowHeight/2;//360;
-
+  Width: number = this.windowWidth; //480;
+  Height: number = this.windowHeight; //360;
+  canvasWidth: number = 700; //this.windowWidth/2;//480;
+  canvasHeight: number = 700; //this.windowHeight/2;//360;
 
   hasError: boolean = false;
   initCamera: boolean = false;
@@ -30,7 +27,7 @@ export class TakeAPhotoComponent implements OnInit {
 
   constructor(public photoService: PhotoService) {
     // if (this.windowWidth / this.windowHeight >= 1) {
-    //   //desktop 
+    //   //desktop
     //   this.Height = 360;
     //   this.Width = 480;
     // }
@@ -39,18 +36,14 @@ export class TakeAPhotoComponent implements OnInit {
     //   this.Height = Math.min(this.windowHeight,360);
     //   this.Width = Math.min(this.windowWidth,270);
     // }
-
-    
   }
   ngOnInit(): void {
-    const vid:HTMLVideoElement = document.getElementsByTagName("video")[0]
-    vid.addEventListener('loadeddata',(()=>{
-      this.canvasHeight = document.getElementsByTagName("video")[0].videoHeight
-      this.canvasWidth = document.getElementsByTagName("video")[0].videoWidth
-    }))
+    const vid: HTMLVideoElement = document.getElementsByTagName('video')[0];
+    vid.addEventListener('loadeddata', () => {
+      this.canvasHeight = document.getElementsByTagName('video')[0].videoHeight;
+      this.canvasWidth = document.getElementsByTagName('video')[0].videoWidth;
+    });
   }
-  
-    
 
   async setupDevice() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -62,7 +55,7 @@ export class TakeAPhotoComponent implements OnInit {
         if (stream) {
           this.video.nativeElement.srcObject = stream;
           this.video.nativeElement.play();
-         
+
           this.hasError = false;
           this.initCamera = true;
         } else {
@@ -81,7 +74,6 @@ export class TakeAPhotoComponent implements OnInit {
       await this.setupDevice();
     }
     this.video.nativeElement.play();
-    
   }
 
   hideCamera() {
@@ -91,7 +83,9 @@ export class TakeAPhotoComponent implements OnInit {
   }
 
   takePhoto() {
-    console.log(document.getElementsByTagName("video")[0].getBoundingClientRect())
+    console.log(
+      document.getElementsByTagName('video')[0].getBoundingClientRect(),
+    );
     //this.canvasHeight = document.getElementsByTagName("video")[0].getBoundingClientRect().height+2
     //this.canvasWidth = document.getElementsByTagName("video")[0].getBoundingClientRect().width+2
     this.drawImageToCanvas(this.video.nativeElement);
@@ -122,7 +116,7 @@ export class TakeAPhotoComponent implements OnInit {
     this.drawImageToCanvas(image);
   }
 
-  drawImageToCanvas(image: unknown|HTMLVideoElement) {
+  drawImageToCanvas(image: unknown | HTMLVideoElement) {
     const img = new Image();
     img.src = image as string;
     // if (image === HTMLVideoElement){
@@ -130,7 +124,7 @@ export class TakeAPhotoComponent implements OnInit {
     //   this.canvasHeight = image.videoHeight
     //   this.canvasWidth = image.videoWidth
     // }
-    console.log("image: ", this.canvasHeight,this.canvasWidth,img)
+    console.log('image: ', this.canvasHeight, this.canvasWidth, img);
     this.canvas.nativeElement
       .getContext('2d')
       .drawImage(image, 0, 0, this.canvasWidth, this.canvasHeight);
@@ -141,7 +135,6 @@ export class TakeAPhotoComponent implements OnInit {
     if (Array.isArray(pht)) {
       this.onlinePhotos = pht;
     }
-    console.log("recived: ", this.onlinePhotos);
+    console.log('recived: ', this.onlinePhotos);
   }
-
 }

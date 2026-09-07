@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-errors',
-    imports: [NgForOf, NgIf],
-    templateUrl: './errors.component.html',
-    styleUrl: './errors.component.scss'
+  selector: 'app-errors',
+  imports: [],
+  templateUrl: './errors.component.html',
+  styleUrl: './errors.component.scss',
 })
 export class ErrorsComponent implements OnInit {
   @Input() control?: any;

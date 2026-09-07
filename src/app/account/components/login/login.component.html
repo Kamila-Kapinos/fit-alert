@@ -34,9 +34,11 @@
           Sign in
         </button>
       </div>
-      <p *ngIf="errorMessage" class="error mt-3 text-danger">
-        {{ errorMessage }}
-      </p>
+      @if (errorMessage) {
+        <p class="error mt-3 text-danger">
+          {{ errorMessage }}
+        </p>
+      }
       <div>
         <button type="button" class="btn btn-light" [routerLink]="['/signup']">
           Create a new account
