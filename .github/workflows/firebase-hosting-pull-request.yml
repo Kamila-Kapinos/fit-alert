@@ -20,7 +20,9 @@ jobs:
           echo "npm version: $(npm --version)"
           echo "PATH: $PATH"
           npx --version
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      # Dependabot PRs have no access to repo secrets, so only build them.
+      - if: ${{ github.actor != 'dependabot[bot]' }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIT_ALERT_62706 }}
